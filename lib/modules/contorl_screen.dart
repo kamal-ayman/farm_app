@@ -39,10 +39,12 @@ class _ControlScreenState extends State<ControlScreen> {
               ),
               Expanded(
                   child: defaultButton(
-                      text: 'Sensor_1',
-                      onPressed: () {},
-                      colorIcon: Colors.green,
-                      isOn: true)),
+                      text: 'water',
+                      onPressed: () {
+                        cubit.update('s2', power['s2'] == 'on' ? 'off' : 'on');
+                      },
+                      colorIcon: power['s2'] == 'on'?Colors.green: Colors.grey,
+                      isOn: power['s2'] == 'on' ? true : false)),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Container(
@@ -52,10 +54,12 @@ class _ControlScreenState extends State<ControlScreen> {
               ),
               Expanded(
                   child: defaultButton(
-                      text: 'Sensor_2',
-                      onPressed: () {},
-                      colorIcon: Colors.white,
-                      isOn: false)),
+                      text: 'اي حاجة 😂',
+                      onPressed: () {
+                        cubit.update('s3', power['s3'] == 'on' ? 'off' : 'on');
+                      },
+                      colorIcon: power['s3'] == 'on'?Colors.green: Colors.grey,
+                      isOn: power['s3'] == 'on' ? true : false)),
             ],
           );
           snapshot.data!.docs.map(

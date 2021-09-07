@@ -31,19 +31,19 @@ class _DashBordScreenState extends State<DashBordScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         textFormView(
-                          nameSensor: 'Sensor_1',
+                          nameSensor: 'ultraSonic',
                           iconSensor: Icons.messenger_outline,
                           data: '${data['d1']}',
                         ),
                         textFormView(
-                          nameSensor: 'Sensor_1',
+                          nameSensor: 'water',
                           iconSensor: Icons.messenger_outline,
-                          data: 'data',
+                          data: '${data['d2']}',
                         ),
                         textFormView(
-                          nameSensor: 'Sensor_2',
+                          nameSensor: 'اي حاجة برضو😂',
                           iconSensor: Icons.messenger_outline,
-                          data: 'data',
+                          data: '${data['d3']}',
                         ),
                       ],
                     );
