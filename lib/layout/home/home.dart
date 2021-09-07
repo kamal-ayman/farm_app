@@ -37,7 +37,7 @@ class HomeFarm extends StatelessWidget {
               selectedItemColor: Colors.green,
               onTap: (value) {
                 cubit.changeIndex(value);
-                cubit.Anime(value.isEven);
+                // cubit.Anime(value.isEven);
               },
               currentIndex: cubit.index,
               items: [
@@ -48,7 +48,6 @@ class HomeFarm extends StatelessWidget {
                     icon: Icon(Icons.contactless_outlined),
                     title: Text('Control')),
               ],
-
             ),
             floatingActionButton: FloatingActionButton.extended(
               onPressed: () {

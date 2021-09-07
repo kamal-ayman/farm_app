@@ -4,7 +4,7 @@ Widget defaultButton({
   required Color colorIcon,
   required String text,
   required bool isOn,
-  required Function onPressed,
+  required onPressed,
 }) =>
     Padding(
       padding: const EdgeInsets.all(20.0),
@@ -14,7 +14,7 @@ Widget defaultButton({
           borderRadius: BorderRadiusDirectional.circular(18.0),
         ),
         child: MaterialButton(
-          onPressed: () => onPressed,
+          onPressed:onPressed,
           child: Row(
             children: [
               Icon(
@@ -53,7 +53,7 @@ Widget textFormView({
   required IconData iconSensor,
   required String data,
   double height = 0,
-  required bool anime,
+  bool anime = true,
 }) =>
     Padding(
       padding: const EdgeInsets.all(20.0),
