@@ -3,7 +3,17 @@ import 'package:farm_app0/shared/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeFarm extends StatelessWidget {
+class HomeFarm extends StatefulWidget {
+  @override
+  _HomeFarmState createState() => _HomeFarmState();
+}
+
+class _HomeFarmState extends State<HomeFarm> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -12,6 +22,8 @@ class HomeFarm extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
+          cubit.getData();
+          cubit.checkNetwork();
           return Scaffold(
             appBar: AppBar(
               title: Text('Farm App - ${cubit.widgetsName[cubit.index]}'),
@@ -36,6 +48,7 @@ class HomeFarm extends StatelessWidget {
             bottomNavigationBar: BottomNavigationBar(
               selectedItemColor: Colors.green,
               onTap: (value) {
+                cubit.getData();
                 cubit.changeIndex(value);
                 // cubit.Anime(value.isEven);
               },
@@ -50,12 +63,10 @@ class HomeFarm extends StatelessWidget {
               ],
             ),
             floatingActionButton: FloatingActionButton.extended(
-              onPressed: () {
-                // Add your onPressed code here!
-              },
-              label: const Text('Connect'),
-              icon: const Icon(Icons.cloud),
-              backgroundColor: Colors.green,
+              onPressed: () {},
+              label: Text('${!cubit.checkNet ? 'Disconnected' : 'Connected'}'),
+              icon: Icon(!cubit.checkNet ? Icons.cloud_off : Icons.cloud),
+              backgroundColor: !cubit.checkNet ? Colors.red : Colors.green,
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,

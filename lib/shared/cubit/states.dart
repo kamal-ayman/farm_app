@@ -4,4 +4,8 @@ class AppInitialState extends AppStates {}
 
 class AppChangeBottomNavBarState extends AppStates {}
 
-class AppChangeAnimeState extends AppStates {}
+class AppGetDataState extends AppStates {}
+
+class AppUpdateDataState extends AppStates {}
+
+class AppLostConnection extends AppStates {}
