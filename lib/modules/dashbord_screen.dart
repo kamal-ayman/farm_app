@@ -42,7 +42,7 @@ class _DashBordScreenState extends State<DashBordScreen> {
                 textFormView(
                   nameSensor: 'Air Humidity',
                   iconSensor: Icons.messenger_outline,
-                  data: '${cubit.airHumidity}',
+                  data: '${cubit.airHumidity}°C',
                 ),
                 textFormView(
                   nameSensor: 'water Humidity',
