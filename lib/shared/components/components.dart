@@ -137,7 +137,7 @@ required String image,
             color: Colors.white,
             border: Border.all(
               color: Colors.blue,
-              width: 2,
+              width: 1,
             ),
             borderRadius:
             BorderRadius.all(Radius.circular(30)),

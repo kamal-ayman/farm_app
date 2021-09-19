@@ -18,9 +18,8 @@ class AboutScreen extends StatelessWidget {
             AppCubit cubit = AppCubit.get(context);
             cubit.getData();
             return Scaffold(
-              backgroundColor: Colors.grey[200],
-              body: Padding(
-                padding: const EdgeInsets.all(10.0),
+              // backgroundColor: Colors.grey[200],
+              body: SingleChildScrollView(
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadiusDirectional.circular(30),
@@ -28,6 +27,9 @@ class AboutScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        height: 30,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -72,78 +74,86 @@ class AboutScreen extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 20),
-                      Container(
-                        height: 450,
-                        width: 340,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadiusDirectional.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Expanded(
-                                child: defaultTextView(
-                                    name: 'nour',
-                                    image: 'assets/img/team.png')),
-                            Expanded(
-                                child: defaultTextView(
-                                    name: 'kamal',
-                                    image: 'assets/img/team.png')),
-                            Expanded(
-                                child: defaultTextView(
-                                    name: 'moamen',
-                                    image: 'assets/img/team.png')),
-                            Expanded(
-                                child: defaultTextView(
-                                    name: 'mohamed',
-                                    image: 'assets/img/team.png')),
-                            Expanded(
-                                child: defaultTextView(
-                                    name: 'el bet eman ',
-                                    image: 'assets/img/team.png')),
-                            SizedBox(
-                              height: 20,
-                            ),
-                          ],
+                      Material(
+                        elevation: 5,
+                        shadowColor: Colors.blue,
+                        borderRadius: BorderRadiusDirectional.circular(30),
+                        child: Container(
+                          height: 380,
+                          width: 340,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Expanded(
+                                  child: defaultTextView(
+                                      name: 'nour',
+                                      image: 'assets/img/team.png')),
+                              Expanded(
+                                  child: defaultTextView(
+                                      name: 'kamal',
+                                      image: 'assets/img/team.png')),
+                              Expanded(
+                                  child: defaultTextView(
+                                      name: 'moamen',
+                                      image: 'assets/img/team.png')),
+                              Expanded(
+                                  child: defaultTextView(
+                                      name: 'mohamed',
+                                      image: 'assets/img/team.png')),
+                              Expanded(
+                                  child: defaultTextView(
+                                      name: 'el bet eman ',
+                                      image: 'assets/img/team.png')),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 30),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 80.0),
                         child: Row(
                           children: [
                             Expanded(
-                              child: Container(
-                                height: 45,
-                                width: 150,
-                                decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius:
-                                      BorderRadiusDirectional.circular(30.0),
-                                ),
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    Navigator.pop(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => HomeFarm(),
+                              child: Material(
+                                elevation: 5,
+
+                                borderRadius:
+                                BorderRadiusDirectional.circular(30.0),
+                                color: Colors.blue,
+                                child: Container(
+                                  height: 50,
+                                  // width: 100,
+                                  // decoration: BoxDecoration(
+                                  //   color: Colors.blue,
+                                  //   // borderRadius:
+                                  //   //     BorderRadiusDirectional.circular(30.0),
+                                  // ),
+                                  child: MaterialButton(
+
+                                    onPressed: () {
+                                      Navigator.pop(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => HomeFarm(),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      'Thank you'.toUpperCase(),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
                                       ),
-                                    );
-                                  },
-                                  child: Text(
-                                    'Thank you',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
                                     ),
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
+                                    // shape: RoundedRectangleBorder(
+                                    //   borderRadius: BorderRadius.circular(30.0),
+                                    // ),
                                   ),
                                 ),
                               ),

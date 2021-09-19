@@ -29,15 +29,16 @@ class _ControlScreenState extends State<ControlScreen> {
                 Expanded(
                   child: defaultButton(
                     text:
-                    '${cubit.Default ? 'Disabled' : 'Water is ${cubit.pumpPower ? 'on' : 'off'}'}',
+                        '${cubit.Default ? 'Disabled' : 'Water is ${cubit.pumpPower ? 'on' : 'off'}'}',
                     onPressed: () {
                       cubit.Default ? null : cubit.update('pump');
                     },
                     isOn: cubit.Default ? false : cubit.pumpPower,
                     colorIcon: cubit.Default
-                        ? Colors.grey:cubit.pumpPower
-                        ? Colors.green
-                        : Colors.grey,
+                        ? Colors.grey
+                        : cubit.pumpPower
+                            ? Colors.green
+                            : Colors.grey,
                     disable: cubit.Default,
                   ),
                 ),
@@ -74,15 +75,16 @@ class _ControlScreenState extends State<ControlScreen> {
                 Expanded(
                   child: defaultButton(
                     text:
-                    '${cubit.Default ? 'Disabled' : 'Water is ${cubit.pumpPower ? 'on' : 'off'}'}',
+                        '${cubit.Default ? 'Disabled' : 'Water is ${cubit.pumpPower ? 'on' : 'off'}'}',
                     onPressed: () {
                       cubit.Default ? null : cubit.update('pump');
                     },
                     isOn: cubit.Default ? false : cubit.pumpPower,
                     colorIcon: cubit.Default
-                        ? Colors.grey:cubit.pumpPower
-                        ? Colors.green
-                        : Colors.grey,
+                        ? Colors.grey
+                        : cubit.pumpPower
+                            ? Colors.green
+                            : Colors.grey,
                     disable: cubit.Default,
                   ),
                 ),
@@ -92,7 +94,8 @@ class _ControlScreenState extends State<ControlScreen> {
                     color: Colors.grey,
                     height: 0.5,
                   ),
-                ),              ],
+                ),
+              ],
             ),
           );
         },

@@ -25,8 +25,7 @@ class _SettingScreenState extends State<SettingScreen> {
               appBar: AppBar(
                 leading: IconButton(
                   onPressed: () {
-                    Navigator.pop(context,
-                        MaterialPageRoute(builder: (context) => HomeFarm()));
+                    Navigator.pop(context);
                   },
                   icon: Icon(Icons.arrow_back_ios_rounded),
                 ),
@@ -48,7 +47,9 @@ class _SettingScreenState extends State<SettingScreen> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Icon(
-                                  Icons.offline_bolt_outlined,
+                                  cubit.Default
+                                      ? Icons.power
+                                      : Icons.signal_wifi_statusbar_4_bar,
                                   size: 30,
                                   color: Colors.white,
                                 ),
@@ -91,7 +92,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Icon(
-                                  Icons.offline_bolt_outlined,
+                                  Icons.supervisor_account,
                                   size: 30,
                                   color: Colors.white,
                                 ),
