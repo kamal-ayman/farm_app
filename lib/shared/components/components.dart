@@ -12,11 +12,13 @@ Widget defaultButton({
       padding: const EdgeInsets.all(20.0),
       child: Container(
         decoration: BoxDecoration(
-          color: !disable?Colors.black54.withOpacity(.7):Colors.red.withOpacity(.7),
+          color: !disable
+              ? Colors.black54.withOpacity(.7)
+              : Colors.red.withOpacity(.7),
           borderRadius: BorderRadiusDirectional.circular(18.0),
         ),
         child: MaterialButton(
-          onPressed:onPressed,
+          onPressed: onPressed,
           child: Row(
             children: [
               Icon(
@@ -80,7 +82,7 @@ Widget textFormView({
                           child: Text(
                             '$nameSensor',
                             style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 23,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -88,9 +90,9 @@ Widget textFormView({
                           )),
                       Expanded(
                           child: Icon(
-                            iconSensor,
-                            color: Colors.white,
-                          )),
+                        iconSensor,
+                        color: Colors.white,
+                      )),
                     ],
                   ),
                   padding: EdgeInsets.all(10),
@@ -111,7 +113,7 @@ Widget textFormView({
                   ),
                   child: Text('$data',
                       style: TextStyle(fontSize: 16, color: Colors.white)),
-                  height: anime?100:0,
+                  height: anime ? 100 : 0,
                   padding: EdgeInsets.all(10),
                   duration: Duration(seconds: 5),
                 ),
@@ -120,56 +122,53 @@ Widget textFormView({
           ),
         ],
       ),
-    ); 
+    );
 
 Widget defaultTextView({
   required String name,
-required String image,
-}) =>Padding(
-  padding:
-  const EdgeInsets.symmetric(horizontal: 15.0),
-  child: Row(
-    children: [
-      Expanded(
-        child: Container(
-          height: 50,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(
-              color: Colors.indigo,
-              width: 1.5,
-            ),
-            borderRadius:
-            BorderRadius.all(Radius.circular(30)),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 8.0),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0),
-                  child: Image.asset(
-                    '$image',
-                    height: 30,
-                    width: 30,
-                  ),
+  required String image,
+}) =>
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  color: Colors.indigo,
+                  width: 1.5,
                 ),
-                Expanded(
-                  child: Text(
-                    '$name',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 20,
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Image.asset(
+                        '$image',
+                        height: 30,
+                        width: 30,
+                      ),
                     ),
-                  ),
+                    Expanded(
+                      child: Text(
+                        '$name',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
-    ],
-  ),
-);
+    );

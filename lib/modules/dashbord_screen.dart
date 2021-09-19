@@ -13,6 +13,7 @@ class DashBordScreen extends StatefulWidget {
 
 class _DashBordScreenState extends State<DashBordScreen> {
   bool check = true;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -34,18 +35,18 @@ class _DashBordScreenState extends State<DashBordScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 textFormView(
-                  nameSensor: 'ultraSonic',
+                  nameSensor: 'Warning system',
                   iconSensor: Icons.messenger_outline,
-                  data: '${cubit.data==null?'':'${cubit.data}'}',
-                  anime: cubit.c?true:false,
+                  data: '${cubit.data == null ? '' : '${cubit.data}'}',
+                  anime: cubit.c ? true : false,
                 ),
                 textFormView(
-                  nameSensor: 'water',
+                  nameSensor: 'Humidity air',
                   iconSensor: Icons.messenger_outline,
                   data: '',
                 ),
                 textFormView(
-                  nameSensor: 'اي حاجة برضو😂',
+                  nameSensor: 'other',
                   iconSensor: Icons.messenger_outline,
                   data: '',
                 ),

@@ -22,7 +22,6 @@ class AboutScreen extends StatelessWidget {
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(30.0),
-
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.amber,

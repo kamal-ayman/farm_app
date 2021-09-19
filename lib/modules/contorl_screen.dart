@@ -1,9 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:farm_app0/modules/test1.dart';
 import 'package:farm_app0/shared/components/components.dart';
 import 'package:farm_app0/shared/cubit/cubit.dart';
 import 'package:farm_app0/shared/cubit/states.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
