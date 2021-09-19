@@ -64,8 +64,10 @@ class AboutScreen extends StatelessWidget {
                                       ),
                                     ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           '  Electronic...',
@@ -75,14 +77,12 @@ class AboutScreen extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-
                                         Text(
                                           'Tm',
                                           style: TextStyle(
                                             color: Colors.black54,
                                             fontSize: 12,
                                             fontWeight: FontWeight.bold,
-
                                           ),
                                         ),
                                       ],

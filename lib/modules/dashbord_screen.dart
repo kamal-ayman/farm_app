@@ -35,20 +35,24 @@ class _DashBordScreenState extends State<DashBordScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 textFormView(
-                  nameSensor: 'Warning system',
+                  nameSensor: 'Temperature',
                   iconSensor: Icons.messenger_outline,
-                  data: '${cubit.data == null ? '' : '${cubit.data}'}',
-                  anime: cubit.c ? true : false,
+                  data: '${cubit.temperature}',
                 ),
                 textFormView(
-                  nameSensor: 'Humidity air',
+                  nameSensor: 'Air Humidity',
                   iconSensor: Icons.messenger_outline,
-                  data: '',
+                  data: '${cubit.airHumidity}',
                 ),
                 textFormView(
-                  nameSensor: 'other',
+                  nameSensor: 'water Humidity',
                   iconSensor: Icons.messenger_outline,
-                  data: '',
+                  data: '${cubit.waterHumidity}',
+                ),
+                textFormView(
+                  nameSensor: 'Warning System',
+                  iconSensor: Icons.messenger_outline,
+                  data: '${cubit.warningSystem}',
                 ),
               ],
             ),
