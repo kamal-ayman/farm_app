@@ -136,8 +136,8 @@ required String image,
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(
-              color: Colors.blue,
-              width: 1,
+              color: Colors.indigo,
+              width: 1.5,
             ),
             borderRadius:
             BorderRadius.all(Radius.circular(30)),
