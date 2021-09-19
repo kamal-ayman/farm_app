@@ -1,3 +1,4 @@
+import 'package:farm_app0/shared/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 
 Widget defaultButton({
@@ -5,12 +6,13 @@ Widget defaultButton({
   required String text,
   required bool isOn,
   required onPressed,
+  required bool disable,
 }) =>
     Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.black54.withOpacity(.7),
+          color: !disable?Colors.black54.withOpacity(.7):Colors.red.withOpacity(.7),
           borderRadius: BorderRadiusDirectional.circular(18.0),
         ),
         child: MaterialButton(
@@ -86,9 +88,9 @@ Widget textFormView({
                           )),
                       Expanded(
                           child: Icon(
-                        iconSensor,
-                        color: Colors.white,
-                      )),
+                            iconSensor,
+                            color: Colors.white,
+                          )),
                     ],
                   ),
                   padding: EdgeInsets.all(10),
@@ -103,9 +105,6 @@ Widget textFormView({
                   alignment: Alignment.topLeft,
                   decoration: BoxDecoration(
                     color: Colors.black54.withOpacity(.7),
-                    // borderRadius: BorderRadiusDirectional.circular(18.0),
-
-                    // color: Colors.grey[200],
                     borderRadius: BorderRadiusDirectional.only(
                         bottomStart: Radius.circular(5),
                         bottomEnd: Radius.circular(5)),
@@ -113,9 +112,8 @@ Widget textFormView({
                   child: Text('$data',
                       style: TextStyle(fontSize: 16, color: Colors.white)),
                   height: anime?100:0,
-                  // width: anime == false?width = 0:width = double.maxFinite,
                   padding: EdgeInsets.all(10),
-                  duration: Duration(milliseconds: 500),
+                  duration: Duration(seconds: 5),
                 ),
               ),
             ],
@@ -123,3 +121,55 @@ Widget textFormView({
         ],
       ),
     ); 
+
+Widget defaultTextView({
+  required String name,
+required String image,
+}) =>Padding(
+  padding:
+  const EdgeInsets.symmetric(horizontal: 15.0),
+  child: Row(
+    children: [
+      Expanded(
+        child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: Colors.blue,
+              width: 2,
+            ),
+            borderRadius:
+            BorderRadius.all(Radius.circular(30)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 8.0),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0),
+                  child: Image.asset(
+                    '$image',
+                    height: 30,
+                    width: 30,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    '$name',
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ],
+  ),
+);

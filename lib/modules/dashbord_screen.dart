@@ -12,6 +12,13 @@ class DashBordScreen extends StatefulWidget {
 }
 
 class _DashBordScreenState extends State<DashBordScreen> {
+  bool check = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -21,6 +28,7 @@ class _DashBordScreenState extends State<DashBordScreen> {
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
           cubit.getData();
+          // cubit.setData();
           return SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -29,6 +37,7 @@ class _DashBordScreenState extends State<DashBordScreen> {
                   nameSensor: 'ultraSonic',
                   iconSensor: Icons.messenger_outline,
                   data: '${cubit.data==null?'':'${cubit.data}'}',
+                  anime: cubit.c?true:false,
                 ),
                 textFormView(
                   nameSensor: 'water',

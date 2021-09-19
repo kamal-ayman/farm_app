@@ -1,4 +1,5 @@
 import 'package:farm_app0/layout/home/home.dart';
+import 'package:farm_app0/modules/settings_screen.dart';
 import 'package:farm_app0/shared/bloc_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

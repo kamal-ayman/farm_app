@@ -1,3 +1,6 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:farm_app0/modules/dashbord_screen.dart';
+import 'package:farm_app0/modules/settings_screen.dart';
 import 'package:farm_app0/shared/cubit/cubit.dart';
 import 'package:farm_app0/shared/cubit/states.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +13,6 @@ class HomeFarm extends StatefulWidget {
 
 class _HomeFarmState extends State<HomeFarm> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AppCubit(),
@@ -22,13 +20,19 @@ class _HomeFarmState extends State<HomeFarm> {
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
-          cubit.getData();
           cubit.checkNetwork();
           return Scaffold(
             appBar: AppBar(
               title: Text('Farm App - ${cubit.widgetsName[cubit.index]}'),
               actions: [
-                IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SettingScreen()));
+                  },
+                  icon: Icon(Icons.settings),
+                ),
               ],
               backgroundColor: Colors.green[400],
             ),
@@ -50,7 +54,6 @@ class _HomeFarmState extends State<HomeFarm> {
               onTap: (value) {
                 cubit.getData();
                 cubit.changeIndex(value);
-                // cubit.Anime(value.isEven);
               },
               currentIndex: cubit.index,
               items: [

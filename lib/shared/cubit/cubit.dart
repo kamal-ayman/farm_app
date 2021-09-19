@@ -17,6 +17,7 @@ class AppCubit extends Cubit<AppStates> {
   int index = 0;
   List<Widget> widgetsScreen = [DashBordScreen(), ControlScreen()];
   List<String> widgetsName = ['DashBoard', 'Control'];
+  bool c = true;
 
   void changeIndex(int index) {
     this.index = index;
@@ -27,26 +28,35 @@ class AppCubit extends Cubit<AppStates> {
   final DatabaseReference db = FirebaseDatabase.instance.reference();
 
   var data;
-
+  bool Default = false;
+bool pumpPower = false;
+bool ultraSonicPower = false;
   getData() => db.once().then((DataSnapshot snap) {
         this.data = snap.value;
         print(snap.value);
+        data['default'] == 'on' ? Default = true : Default = false;
+        data['power']['pump'] == 'on'?pumpPower= true:pumpPower= false;
+        data['power']['ultraSonic'] == 'on'?ultraSonicPower= true:ultraSonicPower= false;
         emit(AppGetDataState());
       });
 
-  update(String path, var data) {
+  update(String sensor) {
     try {
-      db.update({'$path': '${data == 'on' ? 'off' : 'on'}'});
+      if(sensor == 'default')
+        db.update({'default': '${data['default'] == 'on' ? 'off' : 'on'}'});
+      else if(sensor == 'ultra')
+      db.update({'power/ultraSonic': '${data['power']['ultraSonic'] == 'on' ? 'off' : 'on'}'});
+      else if(sensor == 'pump')
+      db.update({'power/pump': '${data['power']['pump'] == 'on' ? 'off' : 'on'}'});
     } catch (err) {}
     emit(AppUpdateDataState());
     getData();
   }
 
   setData() {
-    db.update({'power/pump': 'on'});
-    db.update({'power/ultraSonic': 'on'});
+    db.update({'default': 'on'});
+    // db.update({'power/ultraSonic': 'on'});
   }
-
 
   checkNetwork() async {
     try {
