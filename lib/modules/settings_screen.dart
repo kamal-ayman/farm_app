@@ -108,7 +108,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           ),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0)),
-                          color: Colors.deepOrange[600],
+                          color: Colors.amber[900],
                           onPressed: () {
                             Navigator.push(
                                 context,
