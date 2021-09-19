@@ -112,7 +112,7 @@ Widget textFormView({
                         bottomEnd: Radius.circular(5)),
                   ),
                   child: Text('$data',
-                      style: TextStyle(fontSize: 16, color: Colors.white)),
+                      style: TextStyle(fontSize: 20, color: Colors.white)),
                   height: anime ? 100 : 0,
                   padding: EdgeInsets.all(10),
                   duration: Duration(seconds: 5),

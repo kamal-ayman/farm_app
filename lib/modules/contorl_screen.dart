@@ -49,7 +49,7 @@ class _ControlScreenState extends State<ControlScreen> {
                 Expanded(
                   child: defaultButton(
                     text:
-                        '${cubit.Default ? 'Disabled' : 'ultraSonic is ${cubit.ultraSonicPower ? 'on' : 'off'}'}',
+                        '${cubit.Default ? 'Disabled' : 'Warning System is ${cubit.ultraSonicPower ? 'on' : 'off'}'}',
                     onPressed: () {
                       cubit.Default ? null : cubit.update('ultra');
                     },
