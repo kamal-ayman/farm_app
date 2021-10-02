@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_app0/modules/contorl_screen.dart';
 import 'package:farm_app0/modules/dashbord_screen.dart';
 import 'package:farm_app0/shared/cubit/states.dart';
@@ -24,7 +23,6 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppChangeBottomNavBarState());
   }
 
-  final firebase = FirebaseFirestore.instance.collection('farm');
   final DatabaseReference db = FirebaseDatabase.instance.reference();
 
   var data;
@@ -48,7 +46,9 @@ class AppCubit extends Cubit<AppStates> {
         temperature = data['data']['temperature'];
         warningSystem = data['data']['warningSystem'];
         waterHumidity = data['data']['waterHumidity'];
+        checkNetwork();
         emit(AppGetDataState());
+
       });
 
   update(String sensor) {
@@ -65,10 +65,10 @@ class AppCubit extends Cubit<AppStates> {
             {'power/pump': '${data['power']['pump'] == 'on' ? 'off' : 'on'}'});
     } catch (err) {}
     emit(AppUpdateDataState());
-    getData();
   }
 
   setData() {
+    db.update({'default': 'ok'});
     db.update({'data/airHumidity': 'ok'});
     db.update({'data/waterHumidity': 'ok'});
     db.update({'data/temperature': 'ok'});
@@ -90,4 +90,5 @@ class AppCubit extends Cubit<AppStates> {
     }
     emit(AppLostConnection());
   }
+
 }

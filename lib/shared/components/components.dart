@@ -1,5 +1,5 @@
-import 'package:farm_app0/shared/cubit/cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 Widget defaultButton({
   required Color colorIcon,
@@ -32,7 +32,7 @@ Widget defaultButton({
                   child: Text(
                     '$text',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -112,7 +112,7 @@ Widget textFormView({
                         bottomEnd: Radius.circular(5)),
                   ),
                   child: Text('$data',
-                      style: TextStyle(fontSize: 20, color: Colors.white)),
+                      style: TextStyle(fontSize: 18, color: Colors.white)),
                   height: anime ? 100 : 0,
                   padding: EdgeInsets.all(10),
                   duration: Duration(seconds: 5),
@@ -172,3 +172,253 @@ Widget defaultTextView({
         ],
       ),
     );
+
+Widget defaultInfo({
+  required String img,
+  required String dataName,
+  required String dataValue,
+  required String typeName,
+  required double typeSize,
+}) =>
+    Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: 150,
+            height: 165,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: HexColor('D5C9F2'),
+                  offset: const Offset(
+                    0.0,
+                    10.0,
+                  ),
+                  blurRadius: 1.0,
+                  spreadRadius: 0.0,
+                ),
+              ],
+            ),
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: [
+                        BoxShadow(
+                          color: HexColor('D5C9F2'),
+                          offset: const Offset(
+                            0.0,
+                            7.0,
+                          ),
+                          blurRadius: 1.0,
+                          spreadRadius: 0.0,
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 10.0, bottom: 10, top: 10, right: 10),
+                      child: Image.asset(
+                        img,
+                        height: 55,
+                        width: 55,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    '$dataName',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5.0),
+                          child: Text(
+                            '$dataValue',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                        Text(
+                          '$typeName',
+                          style: TextStyle(fontSize: typeSize),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+Widget defaultPower(
+        {required String imgName,
+        required String powerName,
+        required String statePower,
+        required Color powerColor,
+        required Color textColor,
+        required onPressed}) =>
+    Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: MaterialButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+          ),
+          elevation: 5,
+          onPressed: onPressed,
+          color: powerColor,
+          // height: 165,
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(50),
+                          boxShadow: [
+                            BoxShadow(
+                              color: HexColor('D5C9F2'),
+                              offset: const Offset(
+                                0.0,
+                                7.0,
+                              ),
+                              blurRadius: 1.0,
+                              spreadRadius: 0.0,
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 10.0, bottom: 10, top: 10, right: 10),
+                          child: Image.asset(
+                            'assets/img/$imgName.png',
+                            height: 55,
+                            width: 55,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        '$powerName',
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w600,
+                            color: textColor),
+                      ),
+                      Text(
+                        '$statePower'.toUpperCase(),
+                        style: TextStyle(fontSize: 28, color: textColor),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+Widget aboutName({
+  required String Name,
+  required String img,
+  required String hexColor,
+}) => Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: HexColor('D5C9F2'),
+            offset: const Offset(
+              0.0,
+              10.0,
+            ),
+            blurRadius: 1.0,
+            spreadRadius: 0.0,
+          ),
+        ],
+      ),
+      alignment: Alignment.topCenter,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 15.0),
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: HexColor(hexColor),
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: [
+                  BoxShadow(
+                    color: HexColor('D5C9F2'),
+                    offset: const Offset(
+                      0.0,
+                      7.0,
+                    ),
+                    blurRadius: 1.0,
+                    spreadRadius: 0.0,
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 10.0, bottom: 10, top: 10, right: 10),
+                child: Image.asset(
+                  '$img',
+                  height: 55,
+                  width: 55,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Text(
+                '$Name',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                  color: HexColor(hexColor),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Container(
+                height: 10,
+                decoration: BoxDecoration(
+                  color: HexColor(hexColor),
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+
+
+

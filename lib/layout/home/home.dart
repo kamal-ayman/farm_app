@@ -1,10 +1,13 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:farm_app0/modules/dashbord_screen.dart';
+import 'dart:ui';
+
+import 'package:farm_app0/modules/about_team_screen.dart';
 import 'package:farm_app0/modules/settings_screen.dart';
+import 'package:farm_app0/shared/components/components.dart';
 import 'package:farm_app0/shared/cubit/cubit.dart';
 import 'package:farm_app0/shared/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class HomeFarm extends StatefulWidget {
   @override
@@ -14,65 +17,116 @@ class HomeFarm extends StatefulWidget {
 class _HomeFarmState extends State<HomeFarm> {
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey =
+        new GlobalKey<ScaffoldState>();
     return BlocProvider(
       create: (context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
-          cubit.checkNetwork();
+          cubit.getData();
           return Scaffold(
-            appBar: AppBar(
-              title: Text('Farm App - ${cubit.widgetsName[cubit.index]}'),
-              actions: [
+            key: _scaffoldKey,
+            body: Stack(
+              children: [
+                cubit.widgetsScreen[cubit.index],
                 IconButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SettingScreen()));
+                    _scaffoldKey.currentState!.openDrawer();
                   },
-                  icon: Icon(Icons.settings),
-                ),
-              ],
-              backgroundColor: Colors.green[400],
-            ),
-            body: Stack(
-              fit: StackFit.expand,
-              children: [
-                Image.asset(
-                  'assets/img/wall1.jpg',
-                  fit: BoxFit.cover,
-                ),
-                Container(
-                  child: cubit.widgetsScreen[cubit.index],
-                  color: Color.fromRGBO(0, 0, 0, 150),
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
-            bottomNavigationBar: BottomNavigationBar(
-              selectedItemColor: Colors.green,
-              onTap: (value) {
-                cubit.getData();
-                cubit.changeIndex(value);
-              },
-              currentIndex: cubit.index,
-              items: [
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.dashboard_outlined),
-                    title: Text('DashBord')),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.contactless_outlined),
-                    title: Text('Control')),
-              ],
+            drawer: Drawer(
+              child: ListView(
+                children: [
+                  DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                    ),
+                    child: Container(
+                      child: CircleAvatar(
+                        radius: 50,
+                        child: Image.asset(
+                          'assets/img/team.png',
+                          height: 100,
+                          width: 100,
+                        ),
+                      ),
+                      decoration: new BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: new Border.all(
+                          color: Colors.white,
+                          width: 3.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.dashboard_outlined),
+                    selected: cubit.index == 0 ? true : false,
+                    tileColor: Colors.white,
+                    title: Text(
+                      'DashBoard',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    onTap: () {
+                      cubit.changeIndex(0);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: Text(
+                      'Control',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    leading: Icon(Icons.contactless_outlined),
+                    selected: cubit.index == 1 ? true : false,
+                    tileColor: Colors.white,
+                    onTap: () {
+                      cubit.changeIndex(1);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: Text(
+                      'Default is ${cubit.Default ? 'ON' : 'OFF'}',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    leading:
+                        cubit.Default ? Icon(Icons.power,color: Colors.white,) : Icon(Icons.wifi, color: Colors.white,),
+                    tileColor: !cubit.Default ? Colors.red : Colors.blue,
+                    onTap: () {
+                      cubit.update('default');
+                      Navigator.pop(context);
+                      cubit.changeIndex(cubit.index);
+                    },
+                  ),
+                  ListTile(
+                    title: Text(
+                      'About',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    leading: Icon(Icons.info),
+                    selected: cubit.index == 2 ? true : false,
+                    tileColor: Colors.white,
+                    focusColor: Colors.red,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AboutScreen()),
+                      );
+                      // Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
             ),
-            floatingActionButton: FloatingActionButton.extended(
-              onPressed: () {},
-              label: Text('${!cubit.checkNet ? 'Disconnected' : 'Connected'}'),
-              icon: Icon(!cubit.checkNet ? Icons.cloud_off : Icons.cloud),
-              backgroundColor: !cubit.checkNet ? Colors.red : Colors.green,
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
           );
         },
       ),

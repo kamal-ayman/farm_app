@@ -20,76 +20,100 @@ class _ControlScreenState extends State<ControlScreen> {
           AppCubit cubit = AppCubit.get(context);
           // cubit.setData();
           cubit.getData();
-          return Container(
-            child: Column(
+          return Scaffold(
+            backgroundColor: Colors.grey[100],
+            body: Stack(
               children: [
-                Expanded(
-                  child: defaultButton(
-                    text:
-                        '${cubit.Default ? 'Disabled' : 'Water is ${cubit.pumpPower ? 'on' : 'off'}'}',
-                    onPressed: () {
-                      cubit.Default ? null : cubit.update('pump');
-                    },
-                    isOn: cubit.Default ? false : cubit.pumpPower,
-                    colorIcon: cubit.Default
-                        ? Colors.grey
-                        : cubit.pumpPower
-                            ? Colors.green
-                            : Colors.grey,
-                    disable: cubit.Default,
-                  ),
+                Image.asset(
+                  'assets/img/screen/control.png',
+                  fit: BoxFit.cover,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 190, right: 30.0),
+                      child: Stack(
+                        alignment: Alignment.centerRight,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20.0),
+                            child: Container(
+                              width: 135,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(.5),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 15.0),
+                                child: Text(
+                                  '${cubit.checkNet ? 'Connected' : 'Disconnect'}',
+                                  style: TextStyle(
+                                      color: cubit.checkNet
+                                          ? Colors.white
+                                          : Colors.red,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Image.asset(
+                            'assets/img/cloud.png',
+                            alignment: Alignment.center,
+                            width: 50,
+                            height: 50,
+                            color: cubit.checkNet ? Colors.white : Colors.red,
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Container(
-                    color: Colors.grey,
-                    height: 0.5,
-                  ),
-                ),
-                Expanded(
-                  child: defaultButton(
-                    text:
-                        '${cubit.Default ? 'Disabled' : 'Warning System is ${cubit.ultraSonicPower ? 'on' : 'off'}'}',
-                    onPressed: () {
-                      cubit.Default ? null : cubit.update('ultra');
-                    },
-                    isOn: cubit.Default ? false : cubit.ultraSonicPower,
-                    colorIcon: cubit.Default
-                        ? Colors.grey
-                        : cubit.ultraSonicPower
-                            ? Colors.green
-                            : Colors.grey,
-                    disable: cubit.Default,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Container(
-                    color: Colors.grey,
-                    height: 0.5,
-                  ),
-                ),
-                Expanded(
-                  child: defaultButton(
-                    text:
-                        '${cubit.Default ? 'Disabled' : 'Water is ${cubit.pumpPower ? 'on' : 'off'}'}',
-                    onPressed: () {
-                      cubit.Default ? null : cubit.update('pump');
-                    },
-                    isOn: cubit.Default ? false : cubit.pumpPower,
-                    colorIcon: cubit.Default
-                        ? Colors.grey
-                        : cubit.pumpPower
-                            ? Colors.green
-                            : Colors.grey,
-                    disable: cubit.Default,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Container(
-                    color: Colors.grey,
-                    height: 0.5,
+                  padding: const EdgeInsets.only(
+                      top: 250, left: 30, right: 30, bottom: 30.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      defaultPower(
+                        imgName: 'water_power',
+                        powerName: 'Pump Water',
+                        statePower:
+                            '${cubit.Default ? 'Disable' : cubit.pumpPower ? 'on' : 'off'}',
+                        powerColor: cubit.Default
+                            ? Colors.grey
+                            : cubit.pumpPower
+                                ? Colors.blue
+                                : Colors.white,
+                        textColor: cubit.Default
+                            ? Colors.white
+                            : cubit.pumpPower
+                                ? Colors.white
+                                : Colors.blue,
+                        onPressed: () {
+                          cubit.Default ? null : cubit.update('pump');
+                        },
+                      ),
+                      defaultPower(
+                        imgName: 'warning',
+                        powerName: 'Warning System',
+                        statePower:
+                            '${cubit.Default ? 'Disable' : cubit.ultraSonicPower ? 'on' : 'off'}',
+                        powerColor: cubit.Default
+                            ? Colors.grey
+                            : cubit.ultraSonicPower
+                                ? Colors.red
+                                : Colors.white,
+                        textColor: cubit.Default
+                            ? Colors.white
+                            : cubit.ultraSonicPower
+                                ? Colors.white
+                                : Colors.red,
+                        onPressed: () {
+                          cubit.Default ? null : cubit.update('ultra');
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ],

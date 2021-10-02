@@ -1,4 +1,3 @@
-import 'package:farm_app0/layout/home/home.dart';
 import 'package:farm_app0/modules/about_team_screen.dart';
 import 'package:farm_app0/shared/cubit/cubit.dart';
 import 'package:farm_app0/shared/cubit/states.dart';
