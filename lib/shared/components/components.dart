@@ -347,22 +347,12 @@ Widget aboutName({
   required String Name,
   required String img,
   required String hexColor,
-}) => Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: HexColor('D5C9F2'),
-            offset: const Offset(
-              0.0,
-              10.0,
-            ),
-            blurRadius: 1.0,
-            spreadRadius: 0.0,
-          ),
-        ],
-      ),
-      alignment: Alignment.topCenter,
+  required context,
+  required String text
+}) =>
+    MaterialButton(
+      color: Colors.white,
+      onPressed: () => infoPerson(context, name: Name, text: text, img: img),
       child: Padding(
         padding: const EdgeInsets.only(top: 15.0),
         child: Column(
@@ -393,25 +383,24 @@ Widget aboutName({
                 ),
               ),
             ),
+            Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(
                 '$Name',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: HexColor(hexColor),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Container(
-                height: 10,
-                decoration: BoxDecoration(
-                  color: HexColor(hexColor),
-                  borderRadius: BorderRadius.circular(100),
-                ),
+            Spacer(),
+            Container(
+              height: 10,
+              decoration: BoxDecoration(
+                color: HexColor(hexColor),
+                borderRadius: BorderRadius.circular(100),
               ),
             ),
           ],
@@ -419,6 +408,78 @@ Widget aboutName({
       ),
     );
 
+void infoPerson(
+  BuildContext context, {
+  required String name,
+  required String img,
+  text,
+}) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => Scaffold(
+        appBar: AppBar(
+          title: Text(name),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_rounded),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          actions: [
+            IconButton(
+              onPressed: () => showPic(context, img: img) ,
+              icon: Image.asset(img),
+            ),
+          ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Hero(
+            tag: '$name',
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      '$text',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
 
+                          fontSize: 20,
+                          ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
 
-
+void showPic(BuildContext context, {required String img}) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => Scaffold(
+        appBar: AppBar(
+          title: Text('back'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_rounded),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        body: Center(
+          child: Hero(
+            tag: '',
+            child: CircleAvatar(child: Image.asset(img), radius: 900,),
+          ),
+        ),
+      ),
+    ),
+  );
+}

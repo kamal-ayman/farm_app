@@ -46,9 +46,7 @@ class AppCubit extends Cubit<AppStates> {
         temperature = data['data']['temperature'];
         warningSystem = data['data']['warningSystem'];
         waterHumidity = data['data']['waterHumidity'];
-        checkNetwork();
         emit(AppGetDataState());
-
       });
 
   update(String sensor) {
@@ -90,5 +88,4 @@ class AppCubit extends Cubit<AppStates> {
     }
     emit(AppLostConnection());
   }
-
 }

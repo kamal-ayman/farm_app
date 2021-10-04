@@ -20,6 +20,7 @@ class _ControlScreenState extends State<ControlScreen> {
           AppCubit cubit = AppCubit.get(context);
           // cubit.setData();
           cubit.getData();
+          cubit.checkNetwork();
           return Scaffold(
             backgroundColor: Colors.grey[100],
             body: Stack(
@@ -28,18 +29,30 @@ class _ControlScreenState extends State<ControlScreen> {
                   'assets/img/screen/control.png',
                   fit: BoxFit.cover,
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(23.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Control',
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 190, right: 30.0),
+                      padding: const EdgeInsets.only(top: 190, right: 40.0),
                       child: Stack(
                         alignment: Alignment.centerRight,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(right: 20.0),
+                            padding: const EdgeInsets.only(right: 25.0),
                             child: Container(
-                              width: 135,
+                              width: 130,
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(.5),
                                 borderRadius: BorderRadius.circular(5),
@@ -59,7 +72,6 @@ class _ControlScreenState extends State<ControlScreen> {
                           ),
                           Image.asset(
                             'assets/img/cloud.png',
-                            alignment: Alignment.center,
                             width: 50,
                             height: 50,
                             color: cubit.checkNet ? Colors.white : Colors.red,

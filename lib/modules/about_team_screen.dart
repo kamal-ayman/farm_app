@@ -13,17 +13,17 @@ class _AboutScreenState extends State<AboutScreen> {
   int pageIndex = 0;
   List<PageViewData> PageViewItems = [
     PageViewData(
-        image: "assets/img/team.png", title: "Kamal Ayman", hexColor: 'FFAC2A'),
+        image: "assets/img/team.png", title: "Kamal Ayman", hexColor: 'FFAC2A', text: 'لقد قام بعمل...'),
     PageViewData(
-        image: "assets/img/team.png", title: "nour", hexColor: 'FF3B56'),
+        image: "assets/img/team.png", title: "Kamal Ayman", hexColor: 'FFAC2A', text: 'لقد قام بعمل...'),
     PageViewData(
-        image: "assets/img/team.png", title: "henawy ", hexColor: '1593DC'),
+        image: "assets/img/team.png", title: "Kamal Ayman", hexColor: 'FFAC2A', text: 'لقد قام بعمل...'),
     PageViewData(
-        image: "assets/img/team.png", title: "Kamal Ayman", hexColor: 'FFAC2A'),
+        image: "assets/img/team.png", title: "Kamal Ayman", hexColor: 'FFAC2A', text: 'لقد قام بعمل...'),
     PageViewData(
-        image: "assets/img/team.png", title: "nour", hexColor: 'FF3B56'),
+        image: "assets/img/team.png", title: "Kamal Ayman", hexColor: 'FFAC2A', text: 'لقد قام بعمل...'),
     PageViewData(
-        image: "assets/img/team.png", title: "henawy ", hexColor: '1593DC'),
+        image: "assets/img/team.png", title: "Kamal Ayman", hexColor: 'FFAC2A', text: 'لقد قام بعمل...'),
   ];
 
   @override
@@ -48,20 +48,22 @@ class _AboutScreenState extends State<AboutScreen> {
               ],
             ),
           ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 360),
-                child: Row(
+          Padding(
+            padding: const EdgeInsets.only(top: 360),
+            child: Column(
+              children: [
+                Spacer(),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     FloatingActionButton(
                       onPressed: () {
-                        if (pageIndex != 0)
+                        if (pageIndex != 0) {
                           pageVIewController.previousPage(
                             duration: Duration(milliseconds: 350),
                             curve: Curves.ease,
                           );
+                        }
                       },
                       child: Icon(
                         Icons.arrow_back_ios_rounded,
@@ -94,7 +96,7 @@ class _AboutScreenState extends State<AboutScreen> {
                           child: PageView.builder(
                             controller: pageVIewController,
                             itemBuilder: (context, index) =>
-                                pageViewItem(PageViewItems, index),
+                                pageViewItem(context, PageViewItems, index),
                             itemCount: PageViewItems.length,
                             physics: BouncingScrollPhysics(),
                             onPageChanged: (index) {
@@ -108,11 +110,12 @@ class _AboutScreenState extends State<AboutScreen> {
                     ),
                     FloatingActionButton(
                       onPressed: () {
-                        if (pageIndex != PageViewItems.length - 1)
+                        if (pageIndex != PageViewItems.length - 1) {
                           pageVIewController.nextPage(
                             duration: Duration(milliseconds: 350),
                             curve: Curves.ease,
                           );
+                        }
                       },
                       child: Icon(
                         Icons.arrow_forward_ios,
@@ -122,37 +125,35 @@ class _AboutScreenState extends State<AboutScreen> {
                     ),
                   ],
                 ),
-              ),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: SmoothPageIndicator(
-                      controller: pageVIewController,
-                      count: PageViewItems.length,
-                      effect:
-                          JumpingDotEffect(activeDotColor: HexColor('2961FF')),
-                    ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SmoothPageIndicator(
+                    controller: pageVIewController,
+                    count: PageViewItems.length,
+                    effect:
+                        JumpingDotEffect(activeDotColor: HexColor('2961FF')),
                   ),
-                  MaterialButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    splashColor: Colors.white,
-                    height: 40,
-                    minWidth: 150,
-                    child: Text(
-                      'Back to menu',
-                      style: TextStyle(fontSize: 14, color: HexColor('2961FF')),
-                    ),
+                ),
+                Spacer(),
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                ],
-              ),
-            ],
+                  splashColor: Colors.white,
+                  height: 40,
+                  minWidth: 150,
+                  child: Text(
+                    'Back to menu',
+                    style: TextStyle(fontSize: 14, color: HexColor('2961FF')),
+                  ),
+                ),
+                Spacer(),
+              ],
+            ),
           ),
         ],
       ),
@@ -162,14 +163,17 @@ class _AboutScreenState extends State<AboutScreen> {
 
 class PageViewData {
   PageViewData(
-      {required this.image, required this.title, required this.hexColor});
+      {required this.image, required this.title, required this.hexColor, required this.text});
 
-  late String image, title, hexColor;
+  late String image, title, hexColor, text;
 }
 
-Widget pageViewItem(List<PageViewData> PageViewItems, index) => Container(
-      child: aboutName(
-          Name: PageViewItems[index].title,
-          img: PageViewItems[index].image,
-          hexColor: PageViewItems[index].hexColor),
+Widget pageViewItem(
+        BuildContext context, List<PageViewData> PageViewItems, index) =>
+    aboutName(
+      Name: PageViewItems[index].title,
+      img: PageViewItems[index].image,
+      hexColor: PageViewItems[index].hexColor,
+      context: context,
+      text: PageViewItems[index].text,
     );

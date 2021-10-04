@@ -11,6 +11,7 @@ class DashBordScreen extends StatefulWidget {
 
 class _DashBordScreenState extends State<DashBordScreen> {
   bool check = true;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -20,6 +21,7 @@ class _DashBordScreenState extends State<DashBordScreen> {
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
           cubit.getData();
+          cubit.checkNetwork();
           // cubit.setData();
           return Scaffold(
             backgroundColor: Colors.grey[100],
@@ -29,9 +31,8 @@ class _DashBordScreenState extends State<DashBordScreen> {
                   'assets/img/screen/dashboard.png',
                   fit: BoxFit.cover,
                 ),
-
                 Padding(
-                  padding: const EdgeInsets.all(13.0),
+                  padding: const EdgeInsets.all(23.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -46,7 +47,7 @@ class _DashBordScreenState extends State<DashBordScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 180, right: 40.0),
+                      padding: const EdgeInsets.only(top: 190, right: 40.0),
                       child: Stack(
                         alignment: Alignment.centerRight,
                         children: [
@@ -86,47 +87,47 @@ class _DashBordScreenState extends State<DashBordScreen> {
                   padding: const EdgeInsets.only(
                       top: 280, left: 10, right: 10, bottom: 10.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: Row(
-                          children: [
-                            defaultInfo(
-                              img: 'assets/img/temp.png',
-                              dataName: 'Temperature',
-                              dataValue: '${cubit.temperature}',
-                              typeName: '°',
-                              typeSize: 20,
-                            ),
-                            defaultInfo(
-                              img: 'assets/img/warning.png',
-                              dataName: 'Warning System',
-                              dataValue: '  ${cubit.warningSystem}',
-                              typeName: 'cm',
-                              typeSize: 13,
-                            ),
-                          ],
-                        ),
+                      Spacer(),
+                      Row(
+                        children: [
+                          defaultInfo(
+                            img: 'assets/img/temp.png',
+                            dataName: 'Temperature',
+                            dataValue: '${cubit.temperature}',
+                            typeName: '°',
+                            typeSize: 20,
+                          ),
+                          defaultInfo(
+                            img: 'assets/img/warning.png',
+                            dataName: 'Warning System',
+                            dataValue: '  ${cubit.warningSystem}',
+                            typeName: 'cm',
+                            typeSize: 13,
+                          ),
+                        ],
                       ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            defaultInfo(
-                              img: 'assets/img/air.png',
-                              dataName: 'Humidity Air',
-                              dataValue: '${cubit.airHumidity}',
-                              typeName: '%',
-                              typeSize: 15,
-                            ),
-                            defaultInfo(
-                              img: 'assets/img/water.png',
-                              dataName: 'Humidity Water',
-                              dataValue: '${cubit.waterHumidity}',
-                              typeName: '%',
-                              typeSize: 15,
-                            ),
-                          ],
-                        ),
-                      )
+                      Spacer(),
+                      Row(
+                        children: [
+                          defaultInfo(
+                            img: 'assets/img/air.png',
+                            dataName: 'Humidity Air',
+                            dataValue: '${cubit.airHumidity}',
+                            typeName: '%',
+                            typeSize: 15,
+                          ),
+                          defaultInfo(
+                            img: 'assets/img/water.png',
+                            dataName: 'Humidity Soil',
+                            dataValue: '${cubit.waterHumidity}',
+                            typeName: '%',
+                            typeSize: 15,
+                          ),
+                        ],
+                      ),
+                      Spacer(),
                     ],
                   ),
                 ),
