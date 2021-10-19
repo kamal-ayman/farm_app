@@ -292,6 +292,7 @@ Widget defaultPower(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         decoration: BoxDecoration(
