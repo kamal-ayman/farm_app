@@ -390,7 +390,7 @@ Widget aboutName({
               child: Text(
                 '$Name',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: HexColor(hexColor),
                 ),

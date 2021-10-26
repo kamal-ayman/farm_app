@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 5), () {
+    Timer(Duration(seconds: 4), () {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) => HomeFarm()));
     });
@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // AssetsAudioPlayer.newPlayer().open(
     //   Audio("assets/voice/1.mp3"),
     //   autoStart: true,
-    //   showNotification: true,
+    //   showNotification: false,
     // );
 
     return Scaffold(
@@ -57,22 +57,17 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
-            // logo here
             TextLiquidFill(
               text: 'Smart Farm',
               waveColor: Colors.blueAccent,
               waveDuration: Duration(seconds: 1),
-              loadDuration: Duration(seconds: 3),
+              loadDuration: Duration(seconds: 2),
               boxBackgroundColor: Colors.white,
               textStyle: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(
               height: 20,
             ),
-            // AnimatedTextKit(animatedTexts: [
-            //   WavyAnimatedText('loading', textAlign: TextAlign.center, textStyle: TextStyle(fontSize: 40))
-            // ]),
             CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
             )

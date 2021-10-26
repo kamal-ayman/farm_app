@@ -85,7 +85,7 @@ class _DashBordScreenState extends State<DashBordScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                      top: 280, left: 10, right: 10, bottom: 10.0),
+                      top: 250, left: 10, right: 10, bottom: 10.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -121,7 +121,7 @@ class _DashBordScreenState extends State<DashBordScreen> {
                           defaultInfo(
                             img: 'assets/img/water.png',
                             dataName: 'Humidity Soil',
-                            dataValue: '${cubit.waterHumidity}',
+                            dataValue: '${cubit.soilHumidity}',
                             typeName: '%',
                             typeSize: 15,
                           ),

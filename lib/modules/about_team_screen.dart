@@ -13,17 +13,45 @@ class _AboutScreenState extends State<AboutScreen> {
   int pageIndex = 0;
   List<PageViewData> PageViewItems = [
     PageViewData(
-        image: "assets/img/team.png", title: "Kamal Ayman", hexColor: 'FFAC2A', text: 'لقد قام بعمل...'),
+        image: "assets/img/team.png",
+        title: "Kamal Ayman",
+        hexColor: 'FFAC2A',
+        text: 'لقد قام بعمل...'),
     PageViewData(
-        image: "assets/img/team.png", title: "Kamal Ayman", hexColor: 'FFAC2A', text: 'لقد قام بعمل...'),
+        image: "assets/img/team.png",
+        title: "Nour El Deen",
+        hexColor: 'FF3B56',
+        text: 'لقد قام بعمل...'),
     PageViewData(
-        image: "assets/img/team.png", title: "Kamal Ayman", hexColor: 'FFAC2A', text: 'لقد قام بعمل...'),
+        image: "assets/img/team.png",
+        title: "Moamen Mohsen",
+        hexColor: '1593DC',
+        text: 'لقد قام بعمل...'),
     PageViewData(
-        image: "assets/img/team.png", title: "Kamal Ayman", hexColor: 'FFAC2A', text: 'لقد قام بعمل...'),
+        image: "assets/img/team.png",
+        title: "Yousef Hamedo",
+        hexColor: '00C852',
+        text: 'لقد قام بعمل...'),
     PageViewData(
-        image: "assets/img/team.png", title: "Kamal Ayman", hexColor: 'FFAC2A', text: 'لقد قام بعمل...'),
+        image: "assets/img/team.png",
+        title: "Eman Ali",
+        hexColor: 'EF4BC5',
+        text: 'لقد قام بعمل...'),
     PageViewData(
-        image: "assets/img/team.png", title: "Kamal Ayman", hexColor: 'FFAC2A', text: 'لقد قام بعمل...'),
+        image: "assets/img/team.png",
+        title: "Mohammed Faheem",
+        hexColor: '4C33FF',
+        text: 'لقد قام بعمل...'),
+    PageViewData(
+        image: "assets/img/team.png",
+        title: "Henawy",
+        hexColor: '247DFF',
+        text: 'لقد قام بعمل...'),
+    PageViewData(
+        image: "assets/img/team.png",
+        title: "Mohammed Safwat",
+        hexColor: 'FF6427',
+        text: 'لقد قام بعمل...'),
   ];
 
   @override
@@ -163,7 +191,10 @@ class _AboutScreenState extends State<AboutScreen> {
 
 class PageViewData {
   PageViewData(
-      {required this.image, required this.title, required this.hexColor, required this.text});
+      {required this.image,
+      required this.title,
+      required this.hexColor,
+      required this.text});
 
   late String image, title, hexColor, text;
 }

@@ -32,7 +32,7 @@ class AppCubit extends Cubit<AppStates> {
   String airHumidity = '';
   String temperature = '';
   String warningSystem = '';
-  String waterHumidity = '';
+  String soilHumidity = '';
 
   getData() => db.once().then((DataSnapshot snap) {
         this.data = snap.value;
@@ -45,7 +45,7 @@ class AppCubit extends Cubit<AppStates> {
         airHumidity = data['data']['airHumidity'];
         temperature = data['data']['temperature'];
         warningSystem = data['data']['warningSystem'];
-        waterHumidity = data['data']['waterHumidity'];
+        soilHumidity = data['data']['soilHumidity'];
         emit(AppGetDataState());
       });
 
@@ -68,7 +68,7 @@ class AppCubit extends Cubit<AppStates> {
   setData() {
     db.update({'default': 'ok'});
     db.update({'data/airHumidity': 'ok'});
-    db.update({'data/waterHumidity': 'ok'});
+    db.update({'data/soilHumidity': 'ok'});
     db.update({'data/temperature': 'ok'});
     db.update({'data/warningSystem': 'ok'});
     db.update({'power/ultraSonic': 'ok'});
