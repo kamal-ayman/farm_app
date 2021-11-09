@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:farm_app0/shared/components/components.dart';
 import 'package:farm_app0/shared/cubit/cubit.dart';
 import 'package:farm_app0/shared/cubit/states.dart';
@@ -19,8 +21,8 @@ class _ControlScreenState extends State<ControlScreen> {
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
           // cubit.setData();
-          cubit.getData();
           cubit.checkNetwork();
+          cubit.getData();
           return Scaffold(
             backgroundColor: Colors.grey[100],
             body: Stack(

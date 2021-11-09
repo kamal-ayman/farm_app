@@ -1,5 +1,4 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
-
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:farm_app0/layout/home/home.dart';
@@ -8,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +19,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     return MaterialApp(
       home: SafeArea(child: SplashScreen()),
     );
@@ -35,14 +35,12 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Timer(Duration(seconds: 4), () {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) => HomeFarm()));
     });
   }
-
   @override
   Widget build(BuildContext context) {
     // AssetsAudioPlayer.newPlayer().open(
@@ -50,7 +48,6 @@ class _SplashScreenState extends State<SplashScreen> {
     //   autoStart: true,
     //   showNotification: false,
     // );
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(

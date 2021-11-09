@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:farm_app0/modules/contorl_screen.dart';
@@ -36,7 +37,7 @@ class AppCubit extends Cubit<AppStates> {
 
   getData() => db.once().then((DataSnapshot snap) {
         this.data = snap.value;
-        print(snap.value);
+        // print(snap.value);
         data['default'] == 'on' ? Default = true : Default = false;
         data['power']['pump'] == 'on' ? pumpPower = true : pumpPower = false;
         data['power']['ultraSonic'] == 'on'
@@ -50,18 +51,16 @@ class AppCubit extends Cubit<AppStates> {
       });
 
   update(String sensor) {
-    try {
-      if (sensor == 'default')
-        db.update({'default': '${data['default'] == 'on' ? 'off' : 'on'}'});
-      else if (sensor == 'ultra')
-        db.update({
-          'power/ultraSonic':
-              '${data['power']['ultraSonic'] == 'on' ? 'off' : 'on'}'
-        });
-      else if (sensor == 'pump')
-        db.update(
-            {'power/pump': '${data['power']['pump'] == 'on' ? 'off' : 'on'}'});
-    } catch (err) {}
+    if (sensor == 'default')
+      db.update({'default': '${data['default'] == 'on' ? 'off' : 'on'}'});
+    else if (sensor == 'ultra')
+      db.update({
+        'power/ultraSonic':
+            '${data['power']['ultraSonic'] == 'on' ? 'off' : 'on'}'
+      });
+    else if (sensor == 'pump')
+      db.update(
+          {'power/pump': '${data['power']['pump'] == 'on' ? 'off' : 'on'}'});
     emit(AppUpdateDataState());
   }
 

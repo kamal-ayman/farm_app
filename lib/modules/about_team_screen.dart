@@ -29,16 +29,6 @@ class _AboutScreenState extends State<AboutScreen> {
         text: 'لقد قام بعمل...'),
     PageViewData(
         image: "assets/img/team.png",
-        title: "Yousef Hamedo",
-        hexColor: '00C852',
-        text: 'لقد قام بعمل...'),
-    PageViewData(
-        image: "assets/img/team.png",
-        title: "Eman Ali",
-        hexColor: 'EF4BC5',
-        text: 'لقد قام بعمل...'),
-    PageViewData(
-        image: "assets/img/team.png",
         title: "Mohammed Faheem",
         hexColor: '4C33FF',
         text: 'لقد قام بعمل...'),
@@ -51,6 +41,11 @@ class _AboutScreenState extends State<AboutScreen> {
         image: "assets/img/team.png",
         title: "Mohammed Safwat",
         hexColor: 'FF6427',
+        text: 'لقد قام بعمل...'),
+    PageViewData(
+        image: "assets/img/team.png",
+        title: "Eman Ali",
+        hexColor: 'EF4BC5',
         text: 'لقد قام بعمل...'),
   ];
 

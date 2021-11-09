@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:farm_app0/shared/components/components.dart';
 import 'package:farm_app0/shared/cubit/cubit.dart';
 import 'package:farm_app0/shared/cubit/states.dart';
@@ -20,8 +22,8 @@ class _DashBordScreenState extends State<DashBordScreen> {
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
-          cubit.getData();
           cubit.checkNetwork();
+          cubit.getData();
           // cubit.setData();
           return Scaffold(
             backgroundColor: Colors.grey[100],
