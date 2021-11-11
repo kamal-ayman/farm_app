@@ -73,7 +73,7 @@ class _ControlScreenState extends State<ControlScreen> {
                             ),
                           ),
                           Image.asset(
-                            'assets/img/cloud.png',
+                            'assets/img/ico/cloud.png',
                             width: 50,
                             height: 50,
                             color: cubit.checkNet ? Colors.white : Colors.red,

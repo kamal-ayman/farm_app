@@ -75,7 +75,7 @@ class _DashBordScreenState extends State<DashBordScreen> {
                             ),
                           ),
                           Image.asset(
-                            'assets/img/cloud.png',
+                            'assets/img/ico/cloud.png',
                             width: 50,
                             height: 50,
                             color: cubit.checkNet ? Colors.white : Colors.red,
@@ -89,20 +89,19 @@ class _DashBordScreenState extends State<DashBordScreen> {
                   padding: const EdgeInsets.only(
                       top: 250, left: 10, right: 10, bottom: 10.0),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Spacer(),
                       Row(
                         children: [
                           defaultInfo(
-                            img: 'assets/img/temp.png',
+                            img: 'assets/img/ico/temp.png',
                             dataName: 'Temperature',
                             dataValue: '${cubit.temperature}',
                             typeName: '°',
                             typeSize: 20,
                           ),
                           defaultInfo(
-                            img: 'assets/img/warning.png',
+                            img: 'assets/img/ico/warning.png',
                             dataName: 'Warning System',
                             dataValue: '  ${cubit.warningSystem}',
                             typeName: 'cm',
@@ -110,18 +109,17 @@ class _DashBordScreenState extends State<DashBordScreen> {
                           ),
                         ],
                       ),
-                      Spacer(),
                       Row(
                         children: [
                           defaultInfo(
-                            img: 'assets/img/air.png',
+                            img: 'assets/img/ico/air.png',
                             dataName: 'Humidity Air',
                             dataValue: '${cubit.airHumidity}',
                             typeName: '%',
                             typeSize: 15,
                           ),
                           defaultInfo(
-                            img: 'assets/img/water.png',
+                            img: 'assets/img/ico/water.png',
                             dataName: 'Humidity Soil',
                             dataValue: '${cubit.soilHumidity}',
                             typeName: '%',
@@ -129,7 +127,6 @@ class _DashBordScreenState extends State<DashBordScreen> {
                           ),
                         ],
                       ),
-                      Spacer(),
                     ],
                   ),
                 ),

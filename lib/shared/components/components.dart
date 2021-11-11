@@ -314,7 +314,7 @@ Widget defaultPower(
                           padding: const EdgeInsets.only(
                               left: 10.0, bottom: 10, top: 10, right: 10),
                           child: Image.asset(
-                            'assets/img/$imgName.png',
+                            'assets/img/ico/$imgName.png',
                             height: 55,
                             width: 55,
                           ),
@@ -349,19 +349,28 @@ Widget aboutName({
   required String img,
   required String hexColor,
   required context,
-  required String text
+  required String Atext,
+  required String Etext,
 }) =>
     MaterialButton(
       color: Colors.white,
-      onPressed: () => infoPerson(context, name: Name, text: text, img: img),
+      onPressed: () => infoPerson(
+        context,
+        name: Name,
+        Atext: Atext,
+        Etext: Etext,
+        img: img,
+        color: hexColor,
+      ),
       child: Padding(
         padding: const EdgeInsets.only(top: 15.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               decoration: BoxDecoration(
                 color: HexColor(hexColor),
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(200),
                 boxShadow: [
                   BoxShadow(
                     color: HexColor('D5C9F2'),
@@ -375,16 +384,14 @@ Widget aboutName({
                 ],
               ),
               child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 10.0, bottom: 10, top: 10, right: 10),
+                padding: const EdgeInsets.all(2),
                 child: Image.asset(
                   '$img',
-                  height: 55,
-                  width: 55,
+                  height: 100,
+                  width: 100,
                 ),
               ),
             ),
-            Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(
@@ -396,9 +403,8 @@ Widget aboutName({
                 ),
               ),
             ),
-            Spacer(),
             Container(
-              height: 10,
+              height: 5,
               decoration: BoxDecoration(
                 color: HexColor(hexColor),
                 borderRadius: BorderRadius.circular(100),
@@ -409,16 +415,17 @@ Widget aboutName({
       ),
     );
 
-void infoPerson(
-  BuildContext context, {
-  required String name,
-  required String img,
-  text,
-}) {
+void infoPerson(BuildContext context,
+    {required String name,
+    required String img,
+    required String Atext,
+    required String Etext,
+    required String color}) {
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (context) => Scaffold(
         appBar: AppBar(
+          backgroundColor: HexColor(color),
           title: Text(name),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios_rounded),
@@ -428,29 +435,39 @@ void infoPerson(
           ),
           actions: [
             IconButton(
-              onPressed: () => showPic(context, img: img) ,
+              onPressed: () => showPic(context, img: img, color: color),
               icon: Image.asset(img),
             ),
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(15.0),
           child: Hero(
             tag: '$name',
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
               children: [
-                Column(
-                  children: [
-                    Text(
-                      '$text',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-
-                          fontSize: 20,
-                          ),
-                    )
-                  ],
+                Container(
+                  child: Text(
+                    '$Atext\n',
+                    overflow: TextOverflow.clip,
+                    textDirection: TextDirection.rtl,
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  alignment: AlignmentDirectional.topEnd,
+                ),
+                Text("---------------------------------------------", textAlign: TextAlign.center,),
+                Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    '$Etext\n',
+                    overflow: TextOverflow.clip,
+                    textDirection: TextDirection.ltr,
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -461,11 +478,12 @@ void infoPerson(
   );
 }
 
-void showPic(BuildContext context, {required String img}) {
+void showPic(BuildContext context, {required String img, required String color}) {
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (context) => Scaffold(
         appBar: AppBar(
+          backgroundColor: HexColor(color),
           title: Text('back'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios_rounded),
@@ -477,10 +495,36 @@ void showPic(BuildContext context, {required String img}) {
         body: Center(
           child: Hero(
             tag: '',
-            child: CircleAvatar(child: Image.asset(img), radius: 900,),
+            child: CircleAvatar(
+              child: Image.asset(img),
+              radius: 900,
+            ),
           ),
         ),
       ),
     ),
   );
 }
+
+class PageViewData {
+  PageViewData({
+    required this.image,
+    required this.title,
+    required this.hexColor,
+    required this.Atext,
+    required this.Etext,
+  });
+
+  late String image, title, hexColor, Atext, Etext;
+}
+
+Widget pageViewItempageViewItem(
+        BuildContext context, List<PageViewData> PageViewItems, index) =>
+    aboutName(
+      Atext: PageViewItems[index].Atext,
+      Etext: PageViewItems[index].Etext,
+      Name: PageViewItems[index].title,
+      img: PageViewItems[index].image,
+      hexColor: PageViewItems[index].hexColor,
+      context: context,
+    );

@@ -56,7 +56,7 @@ class _HomeFarmState extends State<HomeFarm> {
                             child: CircleAvatar(
                               radius: 50,
                               child: Image.asset(
-                                'assets/img/team.png',
+                                'assets/img/ico/team.png',
                                 height: 80,
                                 width: 80,
                               ),

@@ -13,41 +13,62 @@ class _AboutScreenState extends State<AboutScreen> {
   int pageIndex = 0;
   List<PageViewData> PageViewItems = [
     PageViewData(
-        image: "assets/img/team.png",
-        title: "Kamal Ayman",
-        hexColor: 'FFAC2A',
-        text: 'لقد قام بعمل...'),
+      image: "assets/img/pics/1.png",
+      title: "Kamal Ayman",
+      hexColor: 'FFAC2A',
+      Atext: "- إنشاء قاعدة بيانات عبر الإنترنت.\n"
+          "- برمجة تطبيق مزرعة ذكية.\n"
+          "- برمجة Arduino للتواصل مع المستشعرات وقاعدة البيانات.\n"
+          "- برمجة ESP-WIFI لإرسال واستقبال قاعدة البيانات.\n",
+      Etext: "\n- Create online database.\n"
+          "- Create Smart Farm Application.\n"
+          "- Code arduino to communicate with sensors and database.\n"
+          "- Code ESP-Wifi to send and receive database\n",
+    ),
     PageViewData(
-        image: "assets/img/team.png",
-        title: "Nour El Deen",
-        hexColor: 'FF3B56',
-        text: 'لقد قام بعمل...'),
+      image: "assets/img/pics/2.png",
+      title: "Nour El Deen",
+      hexColor: 'FF3B56',
+      Atext: '- تخيل كيف سيبدو المشروع للتنفيذ.\n'
+          '- تصميم جسم المشروع.\n'
+          '- تنفيذ وطباعة التصميم.\n',
+      Etext: '- Imagine what the project will look like for implementation.\n'
+          '- Project body design.\n'
+          '- Implementation and printing of the design. \n',
+    ),
     PageViewData(
-        image: "assets/img/team.png",
-        title: "Moamen Mohsen",
+        image: "assets/img/pics/3.png",
+        title: "Mohamed Mostafa",
         hexColor: '1593DC',
-        text: 'لقد قام بعمل...'),
+        Atext: 'لقد قام بعمل...',
+        Etext: ''),
+    PageViewData(
+        image: "assets/img/pics/4.png",
+        title: "Moamen Mohsen",
+        hexColor: '00C852',
+        Etext: '',
+        Atext: 'لقد قام بعمل...'),
+    PageViewData(
+        image: "assets/img/pics/5.png",
+        title: "Eman Ali",
+        hexColor: 'EF4BC5',
+        Atext: 'لقد قام بعمل...',
+        Etext: ''),
     PageViewData(
         image: "assets/img/team.png",
         title: "Mohammed Faheem",
         hexColor: '4C33FF',
-        text: 'لقد قام بعمل...'),
-    PageViewData(
-        image: "assets/img/team.png",
-        title: "Henawy",
-        hexColor: '247DFF',
-        text: 'لقد قام بعمل...'),
+        Atext: 'لقد قام بعمل...',
+        Etext: ''),
     PageViewData(
         image: "assets/img/team.png",
         title: "Mohammed Safwat",
         hexColor: 'FF6427',
-        text: 'لقد قام بعمل...'),
-    PageViewData(
-        image: "assets/img/team.png",
-        title: "Eman Ali",
-        hexColor: 'EF4BC5',
-        text: 'لقد قام بعمل...'),
+        Atext: 'لقد قام بعمل...',
+        Etext: ''),
   ];
+  bool leftIsFull = true;
+  bool rightIsFull = false;
 
   @override
   Widget build(BuildContext context) {
@@ -81,19 +102,30 @@ class _AboutScreenState extends State<AboutScreen> {
                   children: [
                     FloatingActionButton(
                       onPressed: () {
-                        if (pageIndex != 0) {
-                          pageVIewController.previousPage(
-                            duration: Duration(milliseconds: 350),
-                            curve: Curves.ease,
-                          );
-                        }
+                        setState(() {
+                          if (pageIndex > 0) {
+                            pageVIewController.previousPage(
+                              duration: Duration(milliseconds: 350),
+                              curve: Curves.ease,
+                            );
+                            rightIsFull = false;
+                            if (pageIndex == 1){
+                              leftIsFull = true;
+                            }else {
+                              leftIsFull = false;
+                            }
+                          }
+                        });
                       },
                       child: Icon(
                         Icons.arrow_back_ios_rounded,
                         size: 27,
-                        color: HexColor('2961FF'),
+                        color: leftIsFull
+                            ? HexColor('2961FF')
+                            : HexColor('FFFFFF'),
                       ),
-                      backgroundColor: Colors.white,
+                      backgroundColor:
+                          leftIsFull ? Colors.white : HexColor('2961FF'),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -119,7 +151,8 @@ class _AboutScreenState extends State<AboutScreen> {
                           child: PageView.builder(
                             controller: pageVIewController,
                             itemBuilder: (context, index) =>
-                                pageViewItem(context, PageViewItems, index),
+                                pageViewItempageViewItem(
+                                    context, PageViewItems, index),
                             itemCount: PageViewItems.length,
                             physics: BouncingScrollPhysics(),
                             onPageChanged: (index) {
@@ -133,18 +166,30 @@ class _AboutScreenState extends State<AboutScreen> {
                     ),
                     FloatingActionButton(
                       onPressed: () {
-                        if (pageIndex != PageViewItems.length - 1) {
-                          pageVIewController.nextPage(
-                            duration: Duration(milliseconds: 350),
-                            curve: Curves.ease,
-                          );
-                        }
+                        setState(() {
+                          if (pageIndex < PageViewItems.length - 1) {
+                            pageVIewController.nextPage(
+                              duration: Duration(milliseconds: 350),
+                              curve: Curves.ease,
+                            );
+                            leftIsFull = false;
+                            if (pageIndex == PageViewItems.length - 2) {
+                              rightIsFull = true;
+                            } else {
+                              rightIsFull = false;
+                            }
+                          }
+                        });
                       },
                       child: Icon(
                         Icons.arrow_forward_ios,
                         size: 27,
+                        color: rightIsFull
+                            ? HexColor('2961FF')
+                            : HexColor('FFFFFF'),
                       ),
-                      backgroundColor: HexColor('2961FF'),
+                      backgroundColor:
+                          rightIsFull ? Colors.white : HexColor('2961FF'),
                     ),
                   ],
                 ),
@@ -183,23 +228,3 @@ class _AboutScreenState extends State<AboutScreen> {
     );
   }
 }
-
-class PageViewData {
-  PageViewData(
-      {required this.image,
-      required this.title,
-      required this.hexColor,
-      required this.text});
-
-  late String image, title, hexColor, text;
-}
-
-Widget pageViewItem(
-        BuildContext context, List<PageViewData> PageViewItems, index) =>
-    aboutName(
-      Name: PageViewItems[index].title,
-      img: PageViewItems[index].image,
-      hexColor: PageViewItems[index].hexColor,
-      context: context,
-      text: PageViewItems[index].text,
-    );
