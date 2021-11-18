@@ -19,11 +19,11 @@ class _AboutScreenState extends State<AboutScreen> {
       Atext: "- إنشاء قاعدة بيانات عبر الإنترنت.\n"
           "- برمجة تطبيق مزرعة ذكية.\n"
           "- برمجة Arduino للتواصل مع المستشعرات وقاعدة البيانات.\n"
-          "- برمجة ESP-WIFI لإرسال واستقبال قاعدة البيانات.\n",
+          "- برمجة ESP-WIFI لإرسال واستقبال قاعدة البيانات.",
       Etext: "\n- Create online database.\n"
           "- Create Smart Farm Application.\n"
           "- Code arduino to communicate with sensors and database.\n"
-          "- Code ESP-Wifi to send and receive database\n",
+          "- Code ESP-Wifi to send and receive database",
     ),
     PageViewData(
       image: "assets/img/pics/2.png",
@@ -31,8 +31,8 @@ class _AboutScreenState extends State<AboutScreen> {
       hexColor: 'FF3B56',
       Atext: '- تخيل كيف سيبدو المشروع للتنفيذ.\n'
           '- تصميم جسم المشروع.\n'
-          '- تنفيذ وطباعة التصميم.\n',
-      Etext: '- Imagine what the project will look like for implementation.\n'
+          '- تنفيذ وطباعة التصميم.',
+      Etext: '\n- Imagine what the project will look like for implementation.\n'
           '- Project body design.\n'
           '- Implementation and printing of the design. \n',
     ),
@@ -55,13 +55,13 @@ class _AboutScreenState extends State<AboutScreen> {
         Atext: 'لقد قام بعمل...',
         Etext: ''),
     PageViewData(
-        image: "assets/img/team.png",
+        image: "assets/img/ico/team.png",
         title: "Mohammed Faheem",
         hexColor: '4C33FF',
         Atext: 'لقد قام بعمل...',
         Etext: ''),
     PageViewData(
-        image: "assets/img/team.png",
+        image: "assets/img/ico/team.png",
         title: "Mohammed Safwat",
         hexColor: 'FF6427',
         Atext: 'لقد قام بعمل...',

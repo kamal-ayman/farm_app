@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 4), () {
+    Timer(Duration(seconds: 5), () {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) => HomeFarm()));
     });
@@ -57,18 +58,14 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             TextLiquidFill(
               text: 'Smart Farm',
-              waveColor: Colors.blueAccent,
+              waveColor: HexColor('3c81f8'),
               waveDuration: Duration(seconds: 1),
               loadDuration: Duration(seconds: 2),
               boxBackgroundColor: Colors.white,
               textStyle: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-            )
+            SizedBox(height: 1,),
+            Image.asset('assets/img/ico/loader2.gif',),
           ],
         ),
       ),

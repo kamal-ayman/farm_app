@@ -45,40 +45,64 @@ class _HomeFarmState extends State<HomeFarm> {
               child: ListView(
                 children: [
                   Container(
-                    height: 187,
-                    child: DrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            child: CircleAvatar(
-                              radius: 50,
-                              child: Image.asset(
-                                'assets/img/ico/team.png',
-                                height: 80,
-                                width: 80,
-                              ),
-                            ),
-                            decoration: new BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: new Border.all(
+                    color: Colors.blue,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.arrow_forward_ios_outlined),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
                                 color: Colors.white,
-                                width: 3.0,
                               ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 187,
+                          child: DrawerHeader(
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  child: CircleAvatar(
+                                    radius: 50,
+                                    child: Image.asset(
+                                      'assets/img/ico/team.png',
+                                      height: 80,
+                                      width: 80,
+                                    ),
+                                  ),
+                                  decoration: new BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: new Border.all(
+                                      color: Colors.white,
+                                      width: 3.0,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0),
+                                  child: Text(
+                                    'Venoms',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 24),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Text(
-                              'Venoms',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 24),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                   ListTile(
