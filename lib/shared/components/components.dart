@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -179,15 +180,14 @@ Widget defaultInfo({
   required String dataValue,
   required String typeName,
   required double typeSize,
+  required double width,
 }) =>
     Expanded(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 150,
-            height: 165,
+            width: width * .4,
+            height: width * .45,
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
@@ -202,78 +202,76 @@ Widget defaultInfo({
                 ),
               ],
             ),
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(50),
-                      boxShadow: [
-                        BoxShadow(
-                          color: HexColor('D5C9F2'),
-                          offset: const Offset(
-                            0.0,
-                            7.0,
-                          ),
-                          blurRadius: 1.0,
-                          spreadRadius: 0.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(500),
+                    boxShadow: [
+                      BoxShadow(
+                        color: HexColor('D5C9F2'),
+                        offset: const Offset(
+                          0.0,
+                          7.0,
                         ),
-                      ],
+                        blurRadius: 1.0,
+                        spreadRadius: 0.0,
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 10.0, bottom: 10, top: 10, right: 10),
+                    child: Image.asset(
+                      img,
+                      height: width * .18,
+                      width: width * .18,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 10.0, bottom: 10, top: 10, right: 10),
-                      child: Image.asset(
-                        img,
-                        height: 55,
-                        width: 55,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  '$dataName',
+                  style: TextStyle(
+                      fontSize: width * .039, fontWeight: FontWeight.w600),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                      child: Text(
+                        '$dataValue',
+                        style: TextStyle(fontSize: width * .039),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    '$dataName',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                          child: Text(
-                            '$dataValue',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                        Text(
-                          '$typeName',
-                          style: TextStyle(fontSize: typeSize),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                    Text(
+                      '$typeName',
+                      style: TextStyle(fontSize: width / typeSize * .49),
+                    )
+                  ],
+                )
+              ],
             ),
           ),
         ],
       ),
     );
 
-Widget defaultPower(
-        {required String imgName,
-        required String powerName,
-        required String statePower,
-        required Color powerColor,
-        required Color textColor,
-        required onPressed}) =>
+Widget defaultPower({
+  required String imgName,
+  required String powerName,
+  required String statePower,
+  required Color powerColor,
+  required Color textColor,
+  required onPressed,
+  required width,
+}) =>
     Expanded(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -284,60 +282,52 @@ Widget defaultPower(
           elevation: 5,
           onPressed: onPressed,
           color: powerColor,
-          // height: 165,
           child: Container(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(50),
-                          boxShadow: [
-                            BoxShadow(
-                              color: HexColor('D5C9F2'),
-                              offset: const Offset(
-                                0.0,
-                                7.0,
-                              ),
-                              blurRadius: 1.0,
-                              spreadRadius: 0.0,
-                            ),
-                          ],
+            height: width * 0.44,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(500),
+                    boxShadow: [
+                      BoxShadow(
+                        color: HexColor('D5C9F2'),
+                        offset: const Offset(
+                          0.0,
+                          7.0,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 10.0, bottom: 10, top: 10, right: 10),
-                          child: Image.asset(
-                            'assets/img/ico/$imgName.png',
-                            height: 55,
-                            width: 55,
-                          ),
-                        ),
+                        blurRadius: 1.0,
+                        spreadRadius: 0.0,
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        '$powerName',
-                        style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600,
-                            color: textColor),
-                      ),
-                      Text(
-                        '$statePower'.toUpperCase(),
-                        style: TextStyle(fontSize: 28, color: textColor),
-                      )
                     ],
                   ),
-                ],
-              ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 10.0, bottom: 10, top: 10, right: 10),
+                    child: Image.asset(
+                      'assets/img/ico/$imgName.png',
+                      height: width * .18,
+                      width: width * .18,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  '$powerName',
+                  style: TextStyle(
+                      fontSize: width * .05,
+                      fontWeight: FontWeight.w600,
+                      color: textColor),
+                ),
+                Text(
+                  '$statePower'.toUpperCase(),
+                  style: TextStyle(fontSize: width * .06, color: textColor),
+                ),
+              ],
             ),
           ),
         ),
@@ -457,7 +447,10 @@ void infoPerson(BuildContext context,
                   ),
                   alignment: AlignmentDirectional.topEnd,
                 ),
-                Text("---------------------------------------------", textAlign: TextAlign.center,),
+                Text(
+                  "---------------------------------------------",
+                  textAlign: TextAlign.center,
+                ),
                 Container(
                   alignment: Alignment.topLeft,
                   child: Text(
@@ -478,7 +471,8 @@ void infoPerson(BuildContext context,
   );
 }
 
-void showPic(BuildContext context, {required String img, required String color}) {
+void showPic(BuildContext context,
+    {required String img, required String color}) {
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (context) => Scaffold(

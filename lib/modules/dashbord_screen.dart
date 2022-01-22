@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:farm_app0/shared/components/components.dart';
 import 'package:farm_app0/shared/cubit/cubit.dart';
@@ -12,10 +11,9 @@ class DashBordScreen extends StatefulWidget {
 }
 
 class _DashBordScreenState extends State<DashBordScreen> {
-  bool check = true;
-
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
     return BlocProvider(
       create: (context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppStates>(
@@ -25,12 +23,15 @@ class _DashBordScreenState extends State<DashBordScreen> {
           cubit.checkNetwork();
           cubit.getData();
           // cubit.setData();
+
           return Scaffold(
             backgroundColor: Colors.grey[100],
             body: Stack(
               children: [
                 Image.asset(
                   'assets/img/screen/dashboard.png',
+                  width: w,
+
                   fit: BoxFit.cover,
                 ),
                 Padding(
@@ -85,49 +86,57 @@ class _DashBordScreenState extends State<DashBordScreen> {
                     )
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 250, left: 10, right: 10, bottom: 10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Row(
-                        children: [
-                          defaultInfo(
-                            img: 'assets/img/ico/temp.png',
-                            dataName: 'Temperature',
-                            dataValue: '${cubit.temperature}',
-                            typeName: '°',
-                            typeSize: 20,
-                          ),
-                          defaultInfo(
-                            img: 'assets/img/ico/warning.png',
-                            dataName: 'Warning System',
-                            dataValue: '  ${cubit.warningSystem}',
-                            typeName: 'cm',
-                            typeSize: 13,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          defaultInfo(
-                            img: 'assets/img/ico/air.png',
-                            dataName: 'Humidity Air',
-                            dataValue: '${cubit.airHumidity}',
-                            typeName: '%',
-                            typeSize: 15,
-                          ),
-                          defaultInfo(
-                            img: 'assets/img/ico/water.png',
-                            dataName: 'Humidity Soil',
-                            dataValue: '${cubit.soilHumidity}',
-                            typeName: '%',
-                            typeSize: 15,
-                          ),
-                        ],
-                      ),
-                    ],
+                SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 250, left: 10, right: 10, bottom: 10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          children: [
+                            defaultInfo(
+                              width: w,
+                              img: 'assets/img/ico/temp.png',
+                              dataName: 'Temperature',
+                              dataValue: '${cubit.temperature}',
+                              typeName: '°',
+                              typeSize: 10,
+                            ),
+                            defaultInfo(
+                              width: w,
+                              img: 'assets/img/ico/warning.png',
+                              dataName: 'Warning System',
+                              dataValue: '  ${cubit.warningSystem}',
+                              typeName: 'cm',
+                              typeSize: 13,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: w * .04,),
+                        Row(
+                          children: [
+                            defaultInfo(
+                              width: w,
+                              img: 'assets/img/ico/air.png',
+                              dataName: 'Humidity Air',
+                              dataValue: '${cubit.airHumidity}',
+                              typeName: '%',
+                              typeSize: 15,
+                            ),
+                            defaultInfo(
+                              width: w,
+                              img: 'assets/img/ico/water.png',
+                              dataName: 'Humidity Soil',
+                              dataValue: '${cubit.soilHumidity}',
+                              typeName: '%',
+                              typeSize: 15,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

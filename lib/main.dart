@@ -1,4 +1,3 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:farm_app0/layout/home/home.dart';
@@ -19,12 +18,17 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
-    SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    // SystemChrome.setEnabledSystemUIOverlays([]);
+    // SystemChrome.setPreferredOrientations([
+    //   DeviceOrientation.portraitUp,
+    //   DeviceOrientation.portraitDown,
+    // ]);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Color(0x00000000),
+    ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SafeArea(child: SplashScreen()),
+      home: SplashScreen(),
     );
   }
 }
@@ -43,13 +47,9 @@ class _SplashScreenState extends State<SplashScreen> {
           .pushReplacement(MaterialPageRoute(builder: (_) => HomeFarm()));
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    // AssetsAudioPlayer.newPlayer().open(
-    //   Audio("assets/voice/1.mp3"),
-    //   autoStart: true,
-    //   showNotification: false,
-    // );
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -64,8 +64,12 @@ class _SplashScreenState extends State<SplashScreen> {
               boxBackgroundColor: Colors.white,
               textStyle: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 1,),
-            Image.asset('assets/img/ico/loader2.gif',),
+            SizedBox(
+              height: 1,
+            ),
+            Image.asset(
+              'assets/img/ico/loader2.gif',
+            ),
           ],
         ),
       ),
