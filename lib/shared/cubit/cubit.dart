@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:bloc/bloc.dart';
 import 'package:farm_app0/modules/contorl_screen.dart';
 import 'package:farm_app0/modules/dashbord_screen.dart';
 import 'package:farm_app0/shared/cubit/states.dart';
@@ -34,7 +33,9 @@ class AppCubit extends Cubit<AppStates> {
   String warningSystem = '';
   String soilHumidity = '';
 
-  getData() => db.once().then((DataSnapshot snap) {
+  getData() {
+    if (checkNet) {
+      db.once().then((DataSnapshot snap) {
         this.data = snap.value;
         // print(snap.value);
         data['default'] == 'on' ? Default = true : Default = false;
@@ -48,19 +49,23 @@ class AppCubit extends Cubit<AppStates> {
         soilHumidity = data['data']['soilHumidity'];
         emit(AppGetDataState());
       });
+    }
+  }
 
   update(String sensor) {
-    if (sensor == 'default')
-      db.update({'default': '${data['default'] == 'on' ? 'off' : 'on'}'});
-    else if (sensor == 'ultra')
-      db.update({
-        'power/ultraSonic':
-            '${data['power']['ultraSonic'] == 'on' ? 'off' : 'on'}'
-      });
-    else if (sensor == 'pump')
-      db.update(
-          {'power/pump': '${data['power']['pump'] == 'on' ? 'off' : 'on'}'});
-    emit(AppUpdateDataState());
+    if (checkNet) {
+      if (sensor == 'default')
+        db.update({'default': '${data['default'] == 'on' ? 'off' : 'on'}'});
+      else if (sensor == 'ultra')
+        db.update({
+          'power/ultraSonic':
+              '${data['power']['ultraSonic'] == 'on' ? 'off' : 'on'}'
+        });
+      else if (sensor == 'pump')
+        db.update(
+            {'power/pump': '${data['power']['pump'] == 'on' ? 'off' : 'on'}'});
+      emit(AppUpdateDataState());
+    }
   }
 
   setData() {
@@ -84,6 +89,8 @@ class AppCubit extends Cubit<AppStates> {
       print('not connected');
       checkNet = false;
     }
-    emit(AppLostConnection());
+    emit(AppConnectionState());
   }
+
+
 }

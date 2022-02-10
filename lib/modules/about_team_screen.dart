@@ -1,11 +1,13 @@
 import 'package:farm_app0/shared/components/components.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class AboutScreen extends StatefulWidget {
   @override
-  _AboutScreenState createState() => _AboutScreenState();
+  State<AboutScreen> createState() => _AboutScreenState();
 }
 
 class _AboutScreenState extends State<AboutScreen> {
@@ -67,17 +69,24 @@ class _AboutScreenState extends State<AboutScreen> {
         Atext: 'لقد قام بعمل...',
         Etext: ''),
   ];
+
   bool leftIsFull = true;
   bool rightIsFull = false;
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Color(0x00000000),
+      statusBarIconBrightness: Brightness.light,
+    ));
+    final w = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: Stack(
         children: [
           Image.asset(
             'assets/img/screen/about.png',
+            width: w,
             fit: BoxFit.cover,
           ),
           Padding(
@@ -102,20 +111,13 @@ class _AboutScreenState extends State<AboutScreen> {
                   children: [
                     FloatingActionButton(
                       onPressed: () {
-                        setState(() {
-                          if (pageIndex > 0) {
-                            pageVIewController.previousPage(
-                              duration: Duration(milliseconds: 350),
-                              curve: Curves.ease,
-                            );
-                            rightIsFull = false;
-                            if (pageIndex == 1){
-                              leftIsFull = true;
-                            }else {
-                              leftIsFull = false;
-                            }
-                          }
-                        });
+                        if (pageIndex > 0) {
+                          pageVIewController.previousPage(
+                            duration: Duration(milliseconds: 350),
+                            curve: Curves.ease,
+                          );
+                        }
+                        setState(() {});
                       },
                       child: Icon(
                         Icons.arrow_back_ios_rounded,
@@ -151,14 +153,24 @@ class _AboutScreenState extends State<AboutScreen> {
                           child: PageView.builder(
                             controller: pageVIewController,
                             itemBuilder: (context, index) =>
-                                pageViewItempageViewItem(
+                                pageViewItemPageViewItem(
                                     context, PageViewItems, index),
                             itemCount: PageViewItems.length,
                             physics: BouncingScrollPhysics(),
                             onPageChanged: (index) {
-                              setState(() {
-                                pageIndex = index;
-                              });
+                              print(index);
+                              if (index > 0 && index < 6) {
+                                leftIsFull = false;
+                                rightIsFull = false;
+                              } else if (index == 6) {
+                                leftIsFull = false;
+                                rightIsFull = true;
+                              } else {
+                                leftIsFull = true;
+                                rightIsFull = false;
+                              }
+                              pageIndex = index;
+                              setState(() {});
                             },
                           ),
                         ),
@@ -166,20 +178,13 @@ class _AboutScreenState extends State<AboutScreen> {
                     ),
                     FloatingActionButton(
                       onPressed: () {
-                        setState(() {
-                          if (pageIndex < PageViewItems.length - 1) {
-                            pageVIewController.nextPage(
-                              duration: Duration(milliseconds: 350),
-                              curve: Curves.ease,
-                            );
-                            leftIsFull = false;
-                            if (pageIndex == PageViewItems.length - 2) {
-                              rightIsFull = true;
-                            } else {
-                              rightIsFull = false;
-                            }
-                          }
-                        });
+                        if (pageIndex < PageViewItems.length - 1) {
+                          pageVIewController.nextPage(
+                            duration: Duration(milliseconds: 350),
+                            curve: Curves.ease,
+                          );
+                        }
+                        setState(() {});
                       },
                       child: Icon(
                         Icons.arrow_forward_ios,

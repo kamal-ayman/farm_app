@@ -13,77 +13,76 @@ class _ControlScreenState extends State<ControlScreen> {
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
-    return BlocProvider(
-      create: (context) => AppCubit(),
-      child: BlocConsumer<AppCubit, AppStates>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          AppCubit cubit = AppCubit.get(context);
-          // cubit.setData();
-          cubit.checkNetwork();
-          cubit.getData();
-          return Scaffold(
-            backgroundColor: Colors.grey[100],
-            body: Stack(
-              children: [
-                Image.asset(
-                  'assets/img/screen/control.png',
-                  fit: BoxFit.cover,
-                  width: w,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(23.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Control',
-                        style: TextStyle(fontSize: 20, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+    return BlocConsumer<AppCubit, AppStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        AppCubit cubit = AppCubit.get(context);
+        // cubit.setData();
+        cubit.checkNetwork();
+        cubit.getData();
+        return Scaffold(
+          backgroundColor: Colors.grey[100],
+          body: Stack(
+            children: [
+              Image.asset(
+                'assets/img/screen/control.png',
+                fit: BoxFit.cover,
+                width: w,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(23.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 190, right: 40.0),
-                      child: Stack(
-                        alignment: Alignment.centerRight,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 25.0),
-                            child: Container(
-                              width: 130,
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(.5),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 15.0),
-                                child: Text(
-                                  '${cubit.checkNet ? 'Connected' : 'Disconnect'}',
-                                  style: TextStyle(
-                                      color: cubit.checkNet
-                                          ? Colors.white
-                                          : Colors.red,
-                                      fontSize: 17),
-                                ),
+                    Text(
+                      'Control',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 190, right: 40.0),
+                    child: Stack(
+                      alignment: Alignment.centerRight,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 25.0),
+                          child: Container(
+                            width: 130,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(.5),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: Text(
+                                '${cubit.checkNet ? 'Connected' : 'Disconnect'}',
+                                style: TextStyle(
+                                    color: cubit.checkNet
+                                        ? Colors.white
+                                        : Colors.red,
+                                    fontSize: 17),
                               ),
                             ),
                           ),
-                          Image.asset(
-                            'assets/img/ico/cloud.png',
-                            width: 50,
-                            height: 50,
-                            color: cubit.checkNet ? Colors.white : Colors.red,
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                SingleChildScrollView(
+                        ),
+                        Image.asset(
+                          'assets/img/ico/cloud.png',
+                          width: 50,
+                          height: 50,
+                          color: cubit.checkNet ? Colors.white : Colors.red,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              Center(
+                child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -143,11 +142,11 @@ class _ControlScreenState extends State<ControlScreen> {
                     ),
                   ),
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

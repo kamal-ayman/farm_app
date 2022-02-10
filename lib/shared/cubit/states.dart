@@ -8,6 +8,5 @@ class AppGetDataState extends AppStates {}
 
 class AppUpdateDataState extends AppStates {}
 
-class AppLostConnection extends AppStates {}
+class AppConnectionState extends AppStates {}
 
-class AppAnimeState extends AppStates {}
