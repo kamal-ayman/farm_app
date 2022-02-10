@@ -314,15 +314,19 @@ class ImageDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final w = MediaQuery.of(context).size.width;
     return Dialog(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(900.0))),
+        side: BorderSide.none,
+        borderRadius: BorderRadius.circular(500) ,
+      ),
       child: Container(
-        width: w * .85,
-        height: w * .80,
+        width: w - 100,
+        height: w - 100 ,
         decoration: BoxDecoration(
             image: DecorationImage(
+              fit: BoxFit.cover,
           image: ExactAssetImage('$img'),
           // fit: BoxFit.cover
         )),
