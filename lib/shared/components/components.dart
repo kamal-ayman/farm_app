@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:farm_app0/modules/person_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -162,24 +162,35 @@ Widget defaultPower({
       ),
     );
 
-Widget aboutName({
-  required String Name,
-  required String img,
-  required String hexColor,
-  required context,
-  required String Atext,
-  required String Etext,
-}) =>
+class PageViewData {
+  PageViewData({
+    required this.image,
+    required this.title,
+    required this.hexColor,
+    required this.Atext,
+    required this.Etext,
+  });
+
+  late String image, title, hexColor, Atext, Etext;
+}
+
+Widget pageViewItemPageViewItem(
+        BuildContext context, List<PageViewData> PageViewItems, index) =>
     MaterialButton(
       color: Colors.white,
-      onPressed: () => infoPerson(
-        context,
-        name: Name,
-        Atext: Atext,
-        Etext: Etext,
-        img: img,
-        color: hexColor,
-      ),
+      onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => PersonInfoScreen(
+              color: PageViewItems[index].hexColor,
+              img: PageViewItems[index].image,
+              name: PageViewItems[index].title,
+              Atext: PageViewItems[index].Atext,
+              Etext: PageViewItems[index].Etext,
+            ),
+          ),
+        );
+      },
       child: Padding(
         padding: const EdgeInsets.only(top: 15.0),
         child: Column(
@@ -187,7 +198,7 @@ Widget aboutName({
           children: [
             Container(
               decoration: BoxDecoration(
-                color: HexColor(hexColor),
+                color: HexColor(PageViewItems[index].hexColor),
                 borderRadius: BorderRadius.circular(200),
                 boxShadow: [
                   BoxShadow(
@@ -204,7 +215,7 @@ Widget aboutName({
               child: Padding(
                 padding: const EdgeInsets.all(2),
                 child: Image.asset(
-                  '$img',
+                  '${PageViewItems[index].image}',
                   height: 100,
                   width: 100,
                 ),
@@ -213,179 +224,22 @@ Widget aboutName({
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(
-                '$Name',
+                '${PageViewItems[index].title}',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: HexColor(hexColor),
+                  color: HexColor(PageViewItems[index].hexColor),
                 ),
               ),
             ),
             Container(
               height: 5,
               decoration: BoxDecoration(
-                color: HexColor(hexColor),
+                color: HexColor(PageViewItems[index].hexColor),
                 borderRadius: BorderRadius.circular(100),
               ),
             ),
           ],
         ),
       ),
-    );
-
-void infoPerson(BuildContext context,
-    {required String name,
-    required String img,
-    required String Atext,
-    required String Etext,
-    required String color}) {
-  Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (context) => Scaffold(
-        appBar: AppBar(
-          backgroundColor: HexColor(color),
-          title: Text(name),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_rounded),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          actions: [
-            IconButton(
-              onPressed: () async {
-                await showDialog(
-                  context: context,
-                  builder: (_) => ImageDialog(
-                    color: color,
-                    img: img,
-                  ),
-                );
-              },
-              icon: Image.asset(img),
-            ),
-          ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            children: [
-              Container(
-                child: Text(
-                  '$Atext\n',
-                  overflow: TextOverflow.clip,
-                  textDirection: TextDirection.rtl,
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-                alignment: AlignmentDirectional.topEnd,
-              ),
-              Text(
-                "---------------------------------------------",
-                textAlign: TextAlign.center,
-              ),
-              Container(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  '$Etext\n',
-                  overflow: TextOverflow.clip,
-                  textDirection: TextDirection.ltr,
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
-class ImageDialog extends StatelessWidget {
-  var img, color;
-
-  ImageDialog({required String img, required color}) {
-    this.img = img;
-    this.color = color;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    final w = MediaQuery.of(context).size.width;
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        side: BorderSide.none,
-        borderRadius: BorderRadius.circular(500) ,
-      ),
-      child: Container(
-        width: w - 100,
-        height: w - 100 ,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-          image: ExactAssetImage('$img'),
-          // fit: BoxFit.cover
-        )),
-      ),
-    );
-  }
-}
-
-void showPicDialog(BuildContext context,
-    {required String img, required String color}) {}
-
-void showPic(BuildContext context,
-    {required String img, required String color}) {
-  Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (context) => Scaffold(
-        appBar: AppBar(
-          backgroundColor: HexColor(color),
-          title: Text('back'),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_rounded),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        body: Center(
-          child: Hero(
-            tag: '',
-            child: CircleAvatar(
-              child: Image.asset(img),
-              radius: 900,
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
-class PageViewData {
-  PageViewData({
-    required this.image,
-    required this.title,
-    required this.hexColor,
-    required this.Atext,
-    required this.Etext,
-  });
-
-  late String image, title, hexColor, Atext, Etext;
-}
-
-Widget pageViewItemPageViewItem(
-        BuildContext context, List<PageViewData> PageViewItems, index) =>
-    aboutName(
-      Atext: PageViewItems[index].Atext,
-      Etext: PageViewItems[index].Etext,
-      Name: PageViewItems[index].title,
-      img: PageViewItems[index].image,
-      hexColor: PageViewItems[index].hexColor,
-      context: context,
     );

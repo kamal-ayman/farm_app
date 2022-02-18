@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:farm_app0/layout/home/home.dart';
 import 'package:farm_app0/shared/bloc_observer.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import 'modules/alarm_setting_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,8 +32,12 @@ class MyApp extends StatelessWidget {
     ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SafeArea(child: SplashScreen()),
+      home: SplashScreen(),
     );
+    // return MaterialApp(
+    //   debugShowCheckedModeBanner: false,
+    //   home: AlarmSetting(),
+    // );
   }
 }
 

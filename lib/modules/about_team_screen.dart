@@ -1,7 +1,6 @@
 import 'package:farm_app0/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -70,8 +69,8 @@ class _AboutScreenState extends State<AboutScreen> {
         Etext: ''),
   ];
 
-  bool leftIsFull = true;
-  bool rightIsFull = false;
+  bool left = true;
+  bool right = false;
 
   @override
   Widget build(BuildContext context) {
@@ -80,17 +79,28 @@ class _AboutScreenState extends State<AboutScreen> {
       statusBarIconBrightness: Brightness.light,
     ));
     final w = MediaQuery.of(context).size.width;
+    final p = MediaQuery.of(context).padding.top + 10;
+    final h = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: Stack(
         children: [
-          Image.asset(
-            'assets/img/screen/about.png',
+          Container(
+            color: HexColor('#2961ff'),
             width: w,
-            fit: BoxFit.cover,
+            height: p,
+          ),
+          Transform.translate(
+            offset: Offset(0, p),
+            child: Image.asset(
+              'assets/img/screen/about.png',
+              height: h,
+              width: w,
+              fit: BoxFit.fitWidth,
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.all(13.0),
+            padding: EdgeInsets.only(top: p / 2),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -107,7 +117,7 @@ class _AboutScreenState extends State<AboutScreen> {
               children: [
                 Spacer(),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     FloatingActionButton(
                       onPressed: () {
@@ -122,58 +132,50 @@ class _AboutScreenState extends State<AboutScreen> {
                       child: Icon(
                         Icons.arrow_back_ios_rounded,
                         size: 27,
-                        color: leftIsFull
-                            ? HexColor('2961FF')
-                            : HexColor('FFFFFF'),
+                        color: left ? HexColor('2961FF') : HexColor('FFFFFF'),
                       ),
-                      backgroundColor:
-                          leftIsFull ? Colors.white : HexColor('2961FF'),
+                      backgroundColor: left ? Colors.white : HexColor('2961FF'),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: HexColor('D5C9F2'),
-                          borderRadius: BorderRadius.circular(0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: HexColor('D5C9F2'),
-                              offset: const Offset(
-                                0.0,
-                                7.0,
-                              ),
-                              blurRadius: 1.0,
-                              spreadRadius: 0.0,
+                    Container(
+                      decoration: BoxDecoration(
+                        color: HexColor('D5C9F2'),
+                        borderRadius: BorderRadius.circular(0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: HexColor('D5C9F2'),
+                            offset: const Offset(
+                              0.0,
+                              7.0,
                             ),
-                          ],
-                        ),
-                        height: 180,
-                        width: 180,
-                        child: Container(
-                          child: PageView.builder(
-                            controller: pageVIewController,
-                            itemBuilder: (context, index) =>
-                                pageViewItemPageViewItem(
-                                    context, PageViewItems, index),
-                            itemCount: PageViewItems.length,
-                            physics: BouncingScrollPhysics(),
-                            onPageChanged: (index) {
-                              print(index);
-                              if (index > 0 && index < 6) {
-                                leftIsFull = false;
-                                rightIsFull = false;
-                              } else if (index == 6) {
-                                leftIsFull = false;
-                                rightIsFull = true;
-                              } else {
-                                leftIsFull = true;
-                                rightIsFull = false;
-                              }
-                              pageIndex = index;
-                              setState(() {});
-                            },
+                            blurRadius: 1.0,
+                            spreadRadius: 0.0,
                           ),
-                        ),
+                        ],
+                      ),
+                      height: w * .45,
+                      width: w * .45,
+                      child: PageView.builder(
+                        controller: pageVIewController,
+                        itemBuilder: (context, index) =>
+                            pageViewItemPageViewItem(
+                                context, PageViewItems, index),
+                        itemCount: PageViewItems.length,
+                        physics: BouncingScrollPhysics(),
+                        onPageChanged: (index) {
+                          print(index);
+                          if (index > 0 && index < 6) {
+                            left = false;
+                            right = false;
+                          } else if (index == 6) {
+                            left = false;
+                            right = true;
+                          } else {
+                            left = true;
+                            right = false;
+                          }
+                          pageIndex = index;
+                          setState(() {});
+                        },
                       ),
                     ),
                     FloatingActionButton(
@@ -189,12 +191,10 @@ class _AboutScreenState extends State<AboutScreen> {
                       child: Icon(
                         Icons.arrow_forward_ios,
                         size: 27,
-                        color: rightIsFull
-                            ? HexColor('2961FF')
-                            : HexColor('FFFFFF'),
+                        color: right ? HexColor('2961FF') : HexColor('FFFFFF'),
                       ),
                       backgroundColor:
-                          rightIsFull ? Colors.white : HexColor('2961FF'),
+                          right ? Colors.white : HexColor('2961FF'),
                     ),
                   ],
                 ),
@@ -203,8 +203,9 @@ class _AboutScreenState extends State<AboutScreen> {
                   child: SmoothPageIndicator(
                     controller: pageVIewController,
                     count: PageViewItems.length,
-                    effect:
-                        JumpingDotEffect(activeDotColor: HexColor('2961FF')),
+                    effect: JumpingDotEffect(
+                        activeDotColor:
+                            HexColor(PageViewItems[pageIndex].hexColor)),
                   ),
                 ),
                 Spacer(),
@@ -218,7 +219,7 @@ class _AboutScreenState extends State<AboutScreen> {
                   ),
                   splashColor: Colors.white,
                   height: 40,
-                  minWidth: 150,
+                  minWidth: w * .35,
                   child: Text(
                     'Back to menu',
                     style: TextStyle(fontSize: 14, color: HexColor('2961FF')),

@@ -1,32 +1,104 @@
+import 'dart:async';
+
 import 'package:farm_app0/modules/about_team_screen.dart';
 import 'package:farm_app0/shared/cubit/cubit.dart';
 import 'package:farm_app0/shared/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:hexcolor/hexcolor.dart';
 
 class HomeFarm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();
-
     final p = MediaQuery.of(context).padding.top;
-
+    final w = MediaQuery.of(context).size.width;
     return BlocProvider(
-      create: (context) => AppCubit(),
+      create: (context) => AppCubit()..getData()..checkNetwork(),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
-          cubit.getData();
+          Timer(Duration(seconds: 1), () {
+            cubit.getData();
+            cubit.checkNetwork();
+          });
           return Scaffold(
             key: _scaffoldKey,
             body: Stack(
               children: [
-                cubit.widgetsScreen[cubit.index],
+                Container(color: [HexColor('#ffad2b'),HexColor('#1693dc')][cubit.index], width: w, height: p,),
+                Transform.translate(
+                  offset: Offset(0, p),
+                  child: Image.asset(
+                    [
+                      'assets/img/screen/dashboard.png',
+                      'assets/img/screen/control.png',
+                    ][cubit.index],
+                    width: w,
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: EdgeInsets.only(top: p),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        ['Dashboard', 'Control'][cubit.index],
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 190, right: 40.0),
+                      child: Stack(
+                        alignment: Alignment.centerRight,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 25.0),
+                            child: Container(
+                              width: 130,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(.5),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 15.0),
+                                child: Text(
+                                  '${cubit.checkNet ? 'Connected' : 'Disconnect'}',
+                                  style: TextStyle(
+                                      color: cubit.checkNet
+                                          ? Colors.white
+                                          : Colors.red,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Image.asset(
+                            'assets/img/ico/cloud.png',
+                            width: 50,
+                            height: 50,
+                            color: cubit.checkNet ? Colors.white : Colors.red,
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                Center(
+                  child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: cubit.widgetsScreen[cubit.index]),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: p/2, left: p/2),
                   child: IconButton(
                     onPressed: () {
                       _scaffoldKey.currentState!.openDrawer();
@@ -51,7 +123,8 @@ class HomeFarm extends StatelessWidget {
                         alignment: Alignment.center,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -166,9 +239,11 @@ class HomeFarm extends StatelessWidget {
                       tileColor: Colors.white,
                       focusColor: Colors.red,
                       onTap: () {
+                        Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => AboutScreen()),
+                          MaterialPageRoute(
+                              builder: (context) => AboutScreen()),
                         );
                         // Navigator.pop(context);
                       },
