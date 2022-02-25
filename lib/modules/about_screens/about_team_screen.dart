@@ -12,7 +12,7 @@ class AboutScreen extends StatefulWidget {
 class _AboutScreenState extends State<AboutScreen> {
   var pageVIewController = PageController();
   int pageIndex = 0;
-  List<PageViewData> PageViewItems = [
+  List<PageViewData> pageViewItems = [
     PageViewData(
       image: "assets/img/pics/1.png",
       title: "Kamal Ayman",
@@ -57,6 +57,12 @@ class _AboutScreenState extends State<AboutScreen> {
         Etext: ''),
     PageViewData(
         image: "assets/img/ico/team.png",
+        title: "Yousef Ahmed",
+        hexColor: '4C33FF',
+        Atext: 'لقد قام بعمل...',
+        Etext: ''),
+    PageViewData(
+        image: "assets/img/ico/team.png",
         title: "Mohammed Faheem",
         hexColor: '4C33FF',
         Atext: 'لقد قام بعمل...',
@@ -80,7 +86,6 @@ class _AboutScreenState extends State<AboutScreen> {
     ));
     final w = MediaQuery.of(context).size.width;
     final p = MediaQuery.of(context).padding.top + 10;
-    final h = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: Stack(
@@ -94,13 +99,12 @@ class _AboutScreenState extends State<AboutScreen> {
             offset: Offset(0, p),
             child: Image.asset(
               'assets/img/screen/about.png',
-              height: h,
               width: w,
               fit: BoxFit.fitWidth,
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: p / 2),
+            padding: EdgeInsets.only(top: p),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -112,10 +116,9 @@ class _AboutScreenState extends State<AboutScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 360),
+            padding: EdgeInsets.only(top: w * .99),
             child: Column(
               children: [
-                Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -129,6 +132,7 @@ class _AboutScreenState extends State<AboutScreen> {
                         }
                         setState(() {});
                       },
+                      heroTag: 'back',
                       child: Icon(
                         Icons.arrow_back_ios_rounded,
                         size: 27,
@@ -152,25 +156,24 @@ class _AboutScreenState extends State<AboutScreen> {
                           ),
                         ],
                       ),
-                      height: w * .45,
-                      width: w * .45,
+                      height: w * .5,
+                      width: w * .5,
                       child: PageView.builder(
                         controller: pageVIewController,
                         itemBuilder: (context, index) =>
                             pageViewItemPageViewItem(
-                                context, PageViewItems, index),
-                        itemCount: PageViewItems.length,
+                                context, pageViewItems, index, w),
+                        itemCount: pageViewItems.length,
                         physics: BouncingScrollPhysics(),
                         onPageChanged: (index) {
-                          print(index);
-                          if (index > 0 && index < 6) {
-                            left = false;
+                          if (index == 0) {
+                            left = true;
                             right = false;
                           } else if (index == 6) {
                             left = false;
                             right = true;
                           } else {
-                            left = true;
+                            left = false;
                             right = false;
                           }
                           pageIndex = index;
@@ -180,7 +183,7 @@ class _AboutScreenState extends State<AboutScreen> {
                     ),
                     FloatingActionButton(
                       onPressed: () {
-                        if (pageIndex < PageViewItems.length - 1) {
+                        if (pageIndex < pageViewItems.length - 1) {
                           pageVIewController.nextPage(
                             duration: Duration(milliseconds: 350),
                             curve: Curves.ease,
@@ -188,6 +191,7 @@ class _AboutScreenState extends State<AboutScreen> {
                         }
                         setState(() {});
                       },
+                      heroTag: 'next',
                       child: Icon(
                         Icons.arrow_forward_ios,
                         size: 27,
@@ -199,34 +203,22 @@ class _AboutScreenState extends State<AboutScreen> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: SmoothPageIndicator(
                     controller: pageVIewController,
-                    count: PageViewItems.length,
+                    count: pageViewItems.length,
                     effect: JumpingDotEffect(
                         activeDotColor:
-                            HexColor(PageViewItems[pageIndex].hexColor)),
+                            HexColor(pageViewItems[pageIndex].hexColor)),
                   ),
                 ),
-                Spacer(),
-                MaterialButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  splashColor: Colors.white,
-                  height: 40,
-                  minWidth: w * .35,
-                  child: Text(
-                    'Back to menu',
-                    style: TextStyle(fontSize: 14, color: HexColor('2961FF')),
-                  ),
-                ),
-                Spacer(),
               ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: p / 2 + 5, left: p / 2),
+            child: BackButton(
+              color: Colors.white,
             ),
           ),
         ],

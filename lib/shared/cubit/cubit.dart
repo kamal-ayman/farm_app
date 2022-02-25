@@ -37,7 +37,6 @@ class AppCubit extends Cubit<AppStates> {
     if (checkNet) {
       db.once().then((DataSnapshot snap) {
         this.data = snap.value;
-        // print(snap.value);
         data['default'] == 'on' ? Default = true : Default = false;
         data['power']['pump'] == 'on' ? pumpPower = true : pumpPower = false;
         data['power']['ultraSonic'] == 'on'
@@ -92,5 +91,9 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppConnectionState());
   }
 
+  int distance = 100;
+  bool startWarning = false;
+  alarm(){
 
+  }
 }

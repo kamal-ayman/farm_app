@@ -1,15 +1,12 @@
 import 'dart:async';
 
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:farm_app0/layout/home/home.dart';
 import 'package:farm_app0/shared/bloc_observer.dart';
+import 'package:farm_app0/shared/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:hexcolor/hexcolor.dart';
-
-import 'modules/alarm_setting_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +18,6 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setEnabledSystemUIOverlays([]);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -30,14 +26,13 @@ class MyApp extends StatelessWidget {
       statusBarColor: Color(0x00000000),
       statusBarIconBrightness: Brightness.light,
     ));
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+    return BlocProvider(
+      create: (context) => AppCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
+      ),
     );
-    // return MaterialApp(
-    //   debugShowCheckedModeBanner: false,
-    //   home: AlarmSetting(),
-    // );
   }
 }
 
@@ -47,39 +42,54 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool start = false;
+  bool start1 = false;
+
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 5), () {
+    Timer(Duration(seconds: 3), () {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) => HomeFarm()));
+    });
+    Timer(Duration(milliseconds: 0), () {
+      setState(() {
+        start = true;
+      });
+    });
+    Timer(Duration(milliseconds: 1700), () {
+      setState(() {
+        start1 = true;
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width * .8;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextLiquidFill(
-              text: 'Smart Farm',
-              waveColor: HexColor('3c81f8'),
-              waveDuration: Duration(seconds: 1),
-              loadDuration: Duration(seconds: 2),
-              boxBackgroundColor: Colors.white,
-              textStyle: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          AnimatedContainer(
+            duration: Duration(seconds: 2),
+            transform: Matrix4.translationValues(start ? 0 : 400, 0, 0),
+            curve: Curves.fastLinearToSlowEaseIn,
+            height: w,
+            width: start1 ? w : w * .8,
+            child: Image.asset(
+              'assets/img/launch_icon/icon.png',
             ),
-            SizedBox(
-              height: 1,
+          ),
+          SizedBox(height: w / 4,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50.0),
+            child: LinearProgressIndicator(
+              color: Colors.green,
             ),
-            Image.asset(
-              'assets/img/ico/loader2.gif',
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

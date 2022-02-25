@@ -1,4 +1,4 @@
-import 'package:farm_app0/modules/person_info_screen.dart';
+import 'package:farm_app0/modules/about_screens/person_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -99,67 +99,82 @@ Widget defaultPower({
   required Color textColor,
   required onPressed,
   required width,
+  iconPower,
 }) =>
-    Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: MaterialButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
-          ),
-          elevation: 5,
-          onPressed: onPressed,
-          color: powerColor,
-          child: Container(
-            height: width * 0.44,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(500),
-                    boxShadow: [
-                      BoxShadow(
-                        color: HexColor('D5C9F2'),
-                        offset: const Offset(
-                          0.0,
-                          7.0,
-                        ),
-                        blurRadius: 1.0,
-                        spreadRadius: 0.0,
+    Row(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20.0, left: 10, right: 10),
+            child: MaterialButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+              ),
+              elevation: 5,
+              onPressed: onPressed,
+              color: powerColor,
+              child: Container(
+                height: width * 0.44,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(500),
+                        boxShadow: [
+                          BoxShadow(
+                            color: HexColor('D5C9F2'),
+                            offset: const Offset(
+                              0.0,
+                              7.0,
+                            ),
+                            blurRadius: 1.0,
+                            spreadRadius: 0.0,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10.0, bottom: 10, top: 10, right: 10),
-                    child: Image.asset(
-                      'assets/img/ico/$imgName.png',
-                      height: width * .18,
-                      width: width * .18,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: iconPower == null
+                            ? Image.asset(
+                                'assets/img/ico/$imgName.png',
+                                height: width * .18,
+                                width: width * .18,
+                              )
+                            : Icon(
+                                iconPower,
+                                size: 50,
+                                color: powerColor,
+                              ),
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 3.0),
+                      child: Text(
+                        '$powerName',
+                        style: TextStyle(
+                          fontSize: width * .05,
+                          fontWeight: FontWeight.w600,
+                          color: textColor,
+                        ),
+                      ),
+                    ),
+                    if (statePower != '')
+                      Text(
+                        '$statePower'.toUpperCase(),
+                        style: TextStyle(fontSize: width * .06, color: textColor),
+                      ),
+                  ],
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  '$powerName',
-                  style: TextStyle(
-                      fontSize: width * .05,
-                      fontWeight: FontWeight.w600,
-                      color: textColor),
-                ),
-                Text(
-                  '$statePower'.toUpperCase(),
-                  style: TextStyle(fontSize: width * .06, color: textColor),
-                ),
-              ],
+              ),
             ),
           ),
         ),
-      ),
+      ],
     );
 
 class PageViewData {
@@ -175,7 +190,7 @@ class PageViewData {
 }
 
 Widget pageViewItemPageViewItem(
-        BuildContext context, List<PageViewData> PageViewItems, index) =>
+        BuildContext context, List<PageViewData> PageViewItems, index, w) =>
     MaterialButton(
       color: Colors.white,
       onPressed: () {
@@ -216,21 +231,23 @@ Widget pageViewItemPageViewItem(
                 padding: const EdgeInsets.all(2),
                 child: Image.asset(
                   '${PageViewItems[index].image}',
-                  height: 100,
-                  width: 100,
+                  height: w * .30,
+                  width: w * .30,
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Text(
-                '${PageViewItems[index].title}',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: HexColor(PageViewItems[index].hexColor),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '${PageViewItems[index].title}',
+                  style: TextStyle(
+                    fontSize: w * 0.04,
+                    fontWeight: FontWeight.w600,
+                    color: HexColor(PageViewItems[index].hexColor),
+                  ),
                 ),
-              ),
+              ],
             ),
             Container(
               height: 5,
