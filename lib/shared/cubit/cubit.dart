@@ -1,6 +1,10 @@
+import 'dart:async';
 import 'dart:io';
+import 'package:farm_app0/modules/alert_screen.dart';
 import 'package:farm_app0/modules/contorl_screen.dart';
 import 'package:farm_app0/modules/dashbord_screen.dart';
+import 'package:farm_app0/network/local/cache_helper.dart';
+import 'package:farm_app0/shared/components/constants.dart';
 import 'package:farm_app0/shared/cubit/states.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +48,11 @@ class AppCubit extends Cubit<AppStates> {
             : ultraSonicPower = false;
         airHumidity = data['data']['airHumidity'];
         temperature = data['data']['temperature'];
-        warningSystem = data['data']['warningSystem'];
         soilHumidity = data['data']['soilHumidity'];
+        warningSystem = data['data']['warningSystem'];
+        try {
+          warningSystemDistance = int.parse(warningSystem);
+        } catch (e) {}
         emit(AppGetDataState());
       });
     }
@@ -91,9 +98,27 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppConnectionState());
   }
 
-  int distance = 100;
-  bool startWarning = false;
-  alarm(){
-
+  checkWarning(context) {
+    try {
+      if (distance >= int.parse(warningSystem)) {
+        if (!isAlert) {
+          isAlert = true;
+          Timer(Duration(seconds: 5), () {
+            if (distance >= int.parse(warningSystem)) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AlarmSettingScreen(),
+                ),
+              );
+            }else {
+              isAlert = false;
+            }
+          });
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }

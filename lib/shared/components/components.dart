@@ -101,80 +101,76 @@ Widget defaultPower({
   required width,
   iconPower,
 }) =>
-    Row(
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20.0, left: 10, right: 10),
-            child: MaterialButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-              elevation: 5,
-              onPressed: onPressed,
-              color: powerColor,
-              child: Container(
-                height: width * 0.44,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(500),
-                        boxShadow: [
-                          BoxShadow(
-                            color: HexColor('D5C9F2'),
-                            offset: const Offset(
-                              0.0,
-                              7.0,
-                            ),
-                            blurRadius: 1.0,
-                            spreadRadius: 0.0,
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: iconPower == null
-                            ? Image.asset(
-                                'assets/img/ico/$imgName.png',
-                                height: width * .18,
-                                width: width * .18,
-                              )
-                            : Icon(
-                                iconPower,
-                                size: 50,
-                                color: powerColor,
-                              ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 3.0),
-                      child: Text(
-                        '$powerName',
-                        style: TextStyle(
-                          fontSize: width * .05,
-                          fontWeight: FontWeight.w600,
-                          color: textColor,
+    Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 20.0, left: 10, right: 10),
+        child: MaterialButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+          ),
+          elevation: 5,
+          onPressed: onPressed,
+          color: powerColor,
+          child: Container(
+            height: width * 0.44,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(500),
+                    boxShadow: [
+                      BoxShadow(
+                        color: HexColor('D5C9F2'),
+                        offset: const Offset(
+                          0.0,
+                          7.0,
                         ),
+                        blurRadius: 1.0,
+                        spreadRadius: 0.0,
                       ),
-                    ),
-                    if (statePower != '')
-                      Text(
-                        '$statePower'.toUpperCase(),
-                        style: TextStyle(fontSize: width * .06, color: textColor),
-                      ),
-                  ],
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: iconPower == null
+                        ? Image.asset(
+                            'assets/img/ico/$imgName.png',
+                            height: width * .18,
+                            width: width * .18,
+                          )
+                        : Icon(
+                            iconPower,
+                            size: 50,
+                            color: powerColor,
+                          ),
+                  ),
                 ),
-              ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 3.0),
+                  child: Text(
+                    '$powerName',
+                    style: TextStyle(
+                      fontSize: width * .05,
+                      fontWeight: FontWeight.w600,
+                      color: textColor,
+                    ),
+                  ),
+                ),
+                if (statePower != '')
+                  Text(
+                    '$statePower'.toUpperCase(),
+                    style: TextStyle(fontSize: width * .06, color: textColor),
+                  ),
+              ],
             ),
           ),
         ),
-      ],
+      ),
     );
 
 class PageViewData {

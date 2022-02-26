@@ -2,16 +2,26 @@ import 'dart:async';
 
 import 'package:farm_app0/layout/home/home.dart';
 import 'package:farm_app0/shared/bloc_observer.dart';
+import 'package:farm_app0/shared/components/constants.dart';
 import 'package:farm_app0/shared/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'modules/alert_screen.dart';
+import 'network/local/cache_helper.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await CacheHelper.init();
   Bloc.observer = MyBlocObserver();
+  try {
+    distance = CacheHelper.getData(key: 'distance');
+  } catch (e) {
+    CacheHelper.saveData(key: 'distance', value: 0);
+  }
   runApp(MyApp());
 }
 
@@ -82,7 +92,9 @@ class _SplashScreenState extends State<SplashScreen> {
               'assets/img/launch_icon/icon.png',
             ),
           ),
-          SizedBox(height: w / 4,),
+          SizedBox(
+            height: w / 4,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: LinearProgressIndicator(

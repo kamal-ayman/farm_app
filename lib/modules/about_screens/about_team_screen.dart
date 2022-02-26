@@ -217,8 +217,12 @@ class _AboutScreenState extends State<AboutScreen> {
           ),
           Padding(
             padding: EdgeInsets.only(top: p / 2 + 5, left: p / 2),
-            child: BackButton(
-              color: Colors.white,
+            child: IconButton(
+              onPressed: (){
+                Navigator.pop(context);
+              },
+              // iconSize: 40,
+              icon: Icon(Icons.arrow_back_sharp, color: Colors.white,),
             ),
           ),
         ],

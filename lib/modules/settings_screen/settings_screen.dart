@@ -1,4 +1,6 @@
+import 'package:farm_app0/network/local/cache_helper.dart';
 import 'package:farm_app0/shared/components/components.dart';
+import 'package:farm_app0/shared/components/constants.dart';
 import 'package:farm_app0/shared/cubit/cubit.dart';
 import 'package:farm_app0/shared/cubit/states.dart';
 import 'package:flutter/material.dart';
@@ -88,15 +90,23 @@ class SettingsScreen extends StatelessWidget {
                         controller.text = "";
                         Navigator.pop(context);
                       },
-                      child: Text('cancel', style: TextStyle(fontSize: 17, color: Colors.red),)),
+                      child: Text(
+                        'cancel',
+                        style: TextStyle(fontSize: 17, color: Colors.red),
+                      )),
                   TextButton(
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
-                          cubit.distance = int.parse(controller.text);
-                          controller.text = "";
+                          distance = int.parse(controller.text);
+                          CacheHelper.saveData(key: 'distance', value: distance);
                           Navigator.pop(context);
-                        }                      },
-                      child: Text('ok', style: TextStyle(fontSize: 17, color: Colors.green),)),
+                          controller.text = "";
+                        }
+                      },
+                      child: Text(
+                        'ok',
+                        style: TextStyle(fontSize: 17, color: Colors.green),
+                      )),
                 ],
               )
             ],
@@ -112,11 +122,16 @@ class SettingsScreen extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         keyboardType: TextInputType.number,
-        validator: (String? s) {
+        validator: (s) {
           if (s!.isEmpty) {
             return 'Enter a number';
-          } else if (int.parse('$s') > 1000) {
-            return 'make sure you enter number between 1 to 1000';
+          }
+          try {
+            if (int.parse(s) > 1000) {
+              return 'number must between 1 to 1000';
+            }
+          } catch (e) {
+            return 'must enter a number!';
           }
           return null;
         },

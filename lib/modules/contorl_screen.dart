@@ -17,45 +17,53 @@ class ControlScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              defaultPower(
-                width: w,
-                imgName: 'water_power',
-                powerName: 'Pump Water',
-                statePower:
-                '${cubit.Default ? 'Disable' : cubit.pumpPower ? 'on' : 'off'}',
-                powerColor: cubit.Default
-                    ? Colors.grey
-                    : cubit.pumpPower
-                    ? Colors.blue
-                    : Colors.white,
-                textColor: cubit.Default
-                    ? Colors.white
-                    : cubit.pumpPower
-                    ? Colors.white
-                    : Colors.blue,
-                onPressed: () {
-                  cubit.Default ? null : cubit.update('pump');
-                },
+              Row(
+                children: [
+                  defaultPower(
+                    width: w,
+                    imgName: 'water_power',
+                    powerName: 'Pump Water',
+                    statePower:
+                    '${cubit.Default ? 'Disable' : cubit.pumpPower ? 'on' : 'off'}',
+                    powerColor: cubit.Default
+                        ? Colors.grey
+                        : cubit.pumpPower
+                        ? Colors.blue
+                        : Colors.white,
+                    textColor: cubit.Default
+                        ? Colors.white
+                        : cubit.pumpPower
+                        ? Colors.white
+                        : Colors.blue,
+                    onPressed: () {
+                      cubit.Default ? null : cubit.update('pump');
+                    },
+                  ),
+                ],
               ),
-              defaultPower(
-                width: w,
-                imgName: 'warning',
-                powerName: 'Warning System',
-                statePower:
-                '${cubit.Default ? 'Disable' : cubit.ultraSonicPower ? 'on' : 'off'}',
-                powerColor: cubit.Default
-                    ? Colors.grey
-                    : cubit.ultraSonicPower
-                    ? Colors.red
-                    : Colors.white,
-                textColor: cubit.Default
-                    ? Colors.white
-                    : cubit.ultraSonicPower
-                    ? Colors.white
-                    : Colors.red,
-                onPressed: () {
-                  cubit.Default ? null : cubit.update('ultra');
-                },
+              Row(
+                children: [
+                  defaultPower(
+                    width: w,
+                    imgName: 'warning',
+                    powerName: 'Warning System',
+                    statePower:
+                    '${cubit.Default ? 'Disable' : cubit.ultraSonicPower ? 'on' : 'off'}',
+                    powerColor: cubit.Default
+                        ? Colors.grey
+                        : cubit.ultraSonicPower
+                        ? Colors.red
+                        : Colors.white,
+                    textColor: cubit.Default
+                        ? Colors.white
+                        : cubit.ultraSonicPower
+                        ? Colors.white
+                        : Colors.red,
+                    onPressed: () {
+                      cubit.Default ? null : cubit.update('ultra');
+                    },
+                  ),
+                ],
               ),
             ],
           ),

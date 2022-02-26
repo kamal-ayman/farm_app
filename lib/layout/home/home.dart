@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:farm_app0/modules/about_screens/about_team_screen.dart';
 import 'package:farm_app0/modules/settings_screen/settings_screen.dart';
 import 'package:farm_app0/shared/cubit/cubit.dart';
@@ -23,12 +22,17 @@ class HomeFarm extends StatelessWidget {
         Timer(Duration(seconds: 1), () {
           cubit.checkNetwork();
           cubit.getData();
+          cubit.checkWarning(context);
         });
         return Scaffold(
           key: _scaffoldKey,
           body: Stack(
             children: [
-              Container(color: [HexColor('#ffad2b'),HexColor('#1693dc')][cubit.index], width: w, height: p,),
+              Container(
+                color: [HexColor('#ffad2b'), HexColor('#1693dc')][cubit.index],
+                width: w,
+                height: p,
+              ),
               Transform.translate(
                 offset: Offset(0, p),
                 child: Image.asset(
@@ -41,7 +45,7 @@ class HomeFarm extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: p),
+                padding: EdgeInsets.only(top: p + 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -69,7 +73,8 @@ class HomeFarm extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15.0),
                               child: Text(
                                 '${cubit.checkNet ? 'Connected' : 'Disconnect'}',
                                 style: TextStyle(
@@ -95,15 +100,24 @@ class HomeFarm extends StatelessWidget {
                   )
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 250.0),
-                child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: cubit.widgetsScreen[cubit.index]),
+              Column(
+                children: [
+                  Spacer(
+                    flex: 2,
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: cubit.widgetsScreen[cubit.index],
+                    ),
+                  ),
+                ],
               ),
               Padding(
-                padding: EdgeInsets.only(top: p/2, left: p/2),
+                padding: EdgeInsets.only(top: p - 5, left: p - 5),
                 child: IconButton(
+                  splashRadius: 0.1,
                   onPressed: () {
                     _scaffoldKey.currentState!.openDrawer();
                   },
@@ -121,15 +135,17 @@ class HomeFarm extends StatelessWidget {
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: [
-                  Container(color: Colors.blue,height: p,),
+                  Container(
+                    color: Colors.blue,
+                    height: p,
+                  ),
                   Container(
                     color: Colors.blue,
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
                         Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 10.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -169,7 +185,9 @@ class HomeFarm extends StatelessWidget {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 10.0,),
+                                  padding: const EdgeInsets.only(
+                                    top: 10.0,
+                                  ),
                                   child: Text(
                                     'Venoms',
                                     style: TextStyle(
@@ -250,8 +268,7 @@ class HomeFarm extends StatelessWidget {
                       Navigator.pop(context);
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => AboutScreen()),
+                        MaterialPageRoute(builder: (context) => AboutScreen()),
                       );
                       // Navigator.pop(context);
                     },
