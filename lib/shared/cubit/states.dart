@@ -9,4 +9,3 @@ class AppGetDataState extends AppStates {}
 class AppUpdateDataState extends AppStates {}
 
 class AppConnectionState extends AppStates {}
-

@@ -100,25 +100,18 @@ class AppCubit extends Cubit<AppStates> {
 
   checkWarning(context) {
     try {
-      if (distance >= int.parse(warningSystem)) {
-        if (!isAlert) {
-          isAlert = true;
-          Timer(Duration(seconds: 5), () {
-            if (distance >= int.parse(warningSystem)) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AlarmSettingScreen(),
-                ),
-              );
-            }else {
-              isAlert = false;
-            }
-          });
-        }
+      if (distance >= int.parse(warningSystem) && !isAlert) {
+        isAlert = true;
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AlarmSettingScreen(),
+          ),
+        );
       }
     } catch (e) {
       print(e);
     }
   }
 }
+
