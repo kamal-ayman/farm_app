@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:farm_app0/shared/components/constants.dart';
 import 'package:farm_app0/shared/cubit/cubit.dart';
@@ -8,6 +6,7 @@ import 'package:farm_app0/shared/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:vibration/vibration.dart';
 
 class AlarmSettingScreen extends StatelessWidget {
   @override
@@ -27,6 +26,9 @@ class AlarmSettingScreen extends StatelessWidget {
       showNotification: false,
       loopMode: LoopMode.single,
       volume: 1,
+    );
+    Vibration.vibrate(
+      pattern: [500, 1000, 500, 2000, 500, 3000, 500, 500],
     );
     return WillPopScope(
       onWillPop: () async => false,

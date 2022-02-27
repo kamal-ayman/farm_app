@@ -169,7 +169,7 @@ class _AboutScreenState extends State<AboutScreen> {
                           if (index == 0) {
                             left = true;
                             right = false;
-                          } else if (index == 6) {
+                          } else if (index == pageViewItems.length - 1) {
                             left = false;
                             right = true;
                           } else {
