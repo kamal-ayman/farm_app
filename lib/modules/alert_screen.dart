@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:farm_app0/shared/components/constants.dart';
@@ -32,14 +33,12 @@ class AlarmSettingScreen extends StatelessWidget {
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          if (distance < warningSystemDistance) {
-            alert.stop();
-            descriptionAlert.stop();
-            isAlert = false;
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            }
-          }
+          // if (distance < warningSystemDistance) {
+          //   alert.stop();
+          //   descriptionAlert.stop();
+          //   isAlert = false;
+          //   Navigator.pop(context);
+          // }
           return Scaffold(
             backgroundColor: HexColor('e7464c'),
             body: Column(
@@ -88,17 +87,15 @@ class AlarmSettingScreen extends StatelessWidget {
                         onPressed: () {
                           alert.stop();
                           descriptionAlert.stop();
-                          Timer(Duration(seconds: 100), () {
+                          Timer(Duration(seconds: 10), () {
                             isAlert = false;
                           });
                           Navigator.pop(context);
                         },
                         color: HexColor('e95c61'),
-                        // elevation: 0,
                         textColor: Colors.white,
                         height: 45,
                         highlightColor: HexColor('e95c61'),
-                        // highlightElevation: 0,
                       )),
                     ],
                   ),

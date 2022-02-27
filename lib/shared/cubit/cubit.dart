@@ -99,19 +99,20 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   checkWarning(context) {
-    try {
-      if (distance >= int.parse(warningSystem) && !isAlert) {
-        isAlert = true;
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => AlarmSettingScreen(),
-          ),
-        );
+    if (ultraSonicPower && !Default || Default) {
+      try {
+        if (distance >= int.parse(warningSystem) && !isAlert) {
+          isAlert = true;
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AlarmSettingScreen(),
+            ),
+          );
+        }
+      } catch (e) {
+        print(e);
       }
-    } catch (e) {
-      print(e);
     }
   }
 }
-
