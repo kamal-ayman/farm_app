@@ -1,3 +1,4 @@
+import 'package:torch_light/torch_light.dart';
 import 'dart:async';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:farm_app0/shared/components/constants.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:vibration/vibration.dart';
+import 'package:volume_control/volume_control.dart';
 
 class AlarmSettingScreen extends StatelessWidget {
   @override
@@ -27,20 +29,26 @@ class AlarmSettingScreen extends StatelessWidget {
       loopMode: LoopMode.single,
       volume: 1,
     );
-    Vibration.vibrate(
-      pattern: [500, 1000, 500, 2000, 500, 3000, 500, 500],
-    );
+
+    valueControl();
+    bool control = true;
+
     return WillPopScope(
       onWillPop: () async => false,
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          // if (distance < warningSystemDistance) {
-          //   alert.stop();
-          //   descriptionAlert.stop();
-          //   isAlert = false;
-          //   Navigator.pop(context);
-          // }
+          if (control) {
+            setFlashlight(control);
+            Vibration.vibrate(duration: 500);
+            control = false;
+            setFlashlight(control);
+            Timer(Duration(milliseconds: 1000), () {
+              control = true;
+            });
+          }
+          VolumeControl.setVolume(1);
+
           return Scaffold(
             backgroundColor: HexColor('e7464c'),
             body: Column(
@@ -87,8 +95,11 @@ class AlarmSettingScreen extends StatelessWidget {
                           style: TextStyle(fontSize: 18),
                         ),
                         onPressed: () {
+                          Vibration.cancel();
+                          setFlashlight(false);
                           alert.stop();
                           descriptionAlert.stop();
+                          VolumeControl.setVolume(_val);
                           Timer(Duration(seconds: 10), () {
                             isAlert = false;
                           });
@@ -123,4 +134,26 @@ class AlarmSettingScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> setFlashlight(control) async {
+  if (control) {
+    try {
+      await TorchLight.enableTorch();
+    } on Exception catch (_) {
+      // Handle error
+    }
+  } else {
+    try {
+      await TorchLight.disableTorch();
+    } on Exception catch (_) {
+      // Handle error
+    }
+  }
+}
+
+double _val = 0;
+Future<void> valueControl() async {
+  _val = await VolumeControl.volume;
+  VolumeControl.setVolume(1);
 }

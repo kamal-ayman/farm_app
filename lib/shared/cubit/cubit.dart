@@ -41,7 +41,7 @@ class AppCubit extends Cubit<AppStates> {
     if (checkNet) {
       db.once().then((DataSnapshot snap) {
         this.data = snap.value;
-        data['default'] == 'on' ? Default = true : Default = false;
+        data['power']['default'] == 'on' ? Default = true : Default = false;
         data['power']['pump'] == 'on' ? pumpPower = true : pumpPower = false;
         data['power']['ultraSonic'] == 'on'
             ? ultraSonicPower = true
@@ -61,7 +61,7 @@ class AppCubit extends Cubit<AppStates> {
   update(String sensor) {
     if (checkNet) {
       if (sensor == 'default')
-        db.update({'default': '${data['default'] == 'on' ? 'off' : 'on'}'});
+        db.update({'power/default': '${data['power']['default'] == 'on' ? 'off' : 'on'}'});
       else if (sensor == 'ultra')
         db.update({
           'power/ultraSonic':
@@ -75,7 +75,7 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   setData() {
-    db.update({'default': 'ok'});
+    db.update({'power/default': 'ok'});
     db.update({'data/airHumidity': 'ok'});
     db.update({'data/soilHumidity': 'ok'});
     db.update({'data/temperature': 'ok'});
