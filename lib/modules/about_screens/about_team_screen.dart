@@ -86,6 +86,7 @@ class _AboutScreenState extends State<AboutScreen> {
     ));
     final w = MediaQuery.of(context).size.width;
     final p = MediaQuery.of(context).padding.top + 10;
+    final h = MediaQuery.of(context).size.height - p;
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: Stack(
@@ -115,8 +116,8 @@ class _AboutScreenState extends State<AboutScreen> {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: w * .99),
+          Transform.translate(
+            offset: Offset(0, h * .6),
             child: Column(
               children: [
                 Row(
@@ -132,10 +133,11 @@ class _AboutScreenState extends State<AboutScreen> {
                         }
                         setState(() {});
                       },
+                      mini: false,
                       heroTag: 'back',
                       child: Icon(
                         Icons.arrow_back_ios_rounded,
-                        size: 27,
+                        size: 20,
                         color: left ? HexColor('2961FF') : HexColor('FFFFFF'),
                       ),
                       backgroundColor: left ? Colors.white : HexColor('2961FF'),
@@ -156,8 +158,8 @@ class _AboutScreenState extends State<AboutScreen> {
                           ),
                         ],
                       ),
-                      height: w * .5,
-                      width: w * .5,
+                      height: w * .6,
+                      width: w * .6,
                       child: PageView.builder(
                         controller: pageVIewController,
                         itemBuilder: (context, index) =>
@@ -191,10 +193,11 @@ class _AboutScreenState extends State<AboutScreen> {
                         }
                         setState(() {});
                       },
+                      mini: false,
                       heroTag: 'next',
                       child: Icon(
                         Icons.arrow_forward_ios,
-                        size: 27,
+                        size: 20,
                         color: right ? HexColor('2961FF') : HexColor('FFFFFF'),
                       ),
                       backgroundColor:
@@ -208,8 +211,9 @@ class _AboutScreenState extends State<AboutScreen> {
                     controller: pageVIewController,
                     count: pageViewItems.length,
                     effect: JumpingDotEffect(
-                        activeDotColor:
-                            HexColor(pageViewItems[pageIndex].hexColor)),
+                      activeDotColor:
+                          HexColor(pageViewItems[pageIndex].hexColor),
+                    ),
                   ),
                 ),
               ],
@@ -218,11 +222,14 @@ class _AboutScreenState extends State<AboutScreen> {
           Padding(
             padding: EdgeInsets.only(top: p / 2 + 5, left: p / 2),
             child: IconButton(
-              onPressed: (){
+              onPressed: () {
                 Navigator.pop(context);
               },
               // iconSize: 40,
-              icon: Icon(Icons.arrow_back_sharp, color: Colors.white,),
+              icon: Icon(
+                Icons.arrow_back_sharp,
+                color: Colors.white,
+              ),
             ),
           ),
         ],
