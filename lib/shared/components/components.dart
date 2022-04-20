@@ -227,8 +227,8 @@ Widget pageViewItemPageViewItem(
                 padding: const EdgeInsets.all(2),
                 child: Image.asset(
                   '${PageViewItems[index].image}',
-                  height: w * .30,
-                  width: w * .30,
+                  height: w * .40,
+                  width: w * .40,
                 ),
               ),
             ),
@@ -238,7 +238,7 @@ Widget pageViewItemPageViewItem(
                 Text(
                   '${PageViewItems[index].title}',
                   style: TextStyle(
-                    fontSize: w * 0.04,
+                    fontSize: w * 0.05,
                     fontWeight: FontWeight.w600,
                     color: HexColor(PageViewItems[index].hexColor),
                   ),
