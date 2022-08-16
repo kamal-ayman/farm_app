@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class PersonInfoScreen extends StatelessWidget {
-  late String name, img, Atext, Etext, color;
+  final String name, img, Atext, Etext, color;
 
   PersonInfoScreen({
     required String this.name,

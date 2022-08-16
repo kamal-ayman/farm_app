@@ -1,4 +1,4 @@
-import 'package:torch_light/torch_light.dart';
+// import 'package:torch_light/torch_light.dart';
 import 'dart:async';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:farm_app0/shared/components/constants.dart';
@@ -7,6 +7,7 @@ import 'package:farm_app0/shared/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:torch_light/torch_light.dart';
 import 'package:vibration/vibration.dart';
 import 'package:volume_control/volume_control.dart';
 

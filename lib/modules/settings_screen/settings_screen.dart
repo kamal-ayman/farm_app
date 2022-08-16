@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsScreen extends StatelessWidget {
-  var formKey = GlobalKey<FormState>();
-  var controller = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

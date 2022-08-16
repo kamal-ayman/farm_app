@@ -34,9 +34,10 @@ class MyApp extends StatelessWidget {
       statusBarIconBrightness: Brightness.light,
     ));
     return BlocProvider(
-      create: (context) => AppCubit(),
+      create: (context) => AppCubit()..getData()..checkNetwork(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        // home: HomeFarm(),
         home: SplashScreen(),
       ),
     );

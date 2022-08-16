@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'dart:io';
 import 'package:farm_app0/modules/alert_screen.dart';
 import 'package:farm_app0/modules/contorl_screen.dart';
 import 'package:farm_app0/modules/dashbord_screen.dart';
-import 'package:farm_app0/network/local/cache_helper.dart';
 import 'package:farm_app0/shared/components/constants.dart';
 import 'package:farm_app0/shared/cubit/states.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -17,6 +15,7 @@ class AppCubit extends Cubit<AppStates> {
 
   static AppCubit get(context) => BlocProvider.of(context);
   bool checkNet = false;
+  bool lastCheckNet = false;
 
   int index = 0;
   List<Widget> widgetsScreen = [DashBordScreen(), ControlScreen()];
@@ -30,6 +29,7 @@ class AppCubit extends Cubit<AppStates> {
 
   final DatabaseReference db = FirebaseDatabase.instance.reference();
 
+
   // var data;
   bool Default = false;
   bool pumpPower = false;
@@ -41,9 +41,8 @@ class AppCubit extends Cubit<AppStates> {
   DataModel? data;
 
   getData() {
-    if (checkNet) {
-      db.once().then((DataSnapshot snap) {
-        data = DataModel.fromJson(snap.value as Map<dynamic, dynamic>);
+      db.onValue.listen((event) {
+        data = DataModel.fromJson(event.snapshot.value as Map<dynamic, dynamic>);
         data!.power!.Default == 'on' ? Default = true : Default = false;
         data!.power!.pump == 'on' ? pumpPower = true : pumpPower = false;
         data!.power!.ultraSonic == 'on'
@@ -53,12 +52,14 @@ class AppCubit extends Cubit<AppStates> {
         temperature = data!.data!.temperature!;
         soilHumidity = data!.data!.soilHumidity!;
         warningSystem = data!.data!.warningSystem!;
-        try {
-          warningSystemDistance = int.parse(warningSystem);
-        } catch (e) {}
-        emit(AppGetDataState());
+        warningSystemDistance = int.parse(warningSystem);
+        emit(AppGetDataSuccessState());
+      }).onError((e){
+        checkNetwork();
+        print(e.toString());
+        print('e.toString()');
+        emit(AppGetDataErrorState());
       });
-    }
   }
 
   update(String sensor) {
@@ -83,14 +84,17 @@ class AppCubit extends Cubit<AppStates> {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        print('connected');
+        // print('connected');
         checkNet = true;
       }
     } on SocketException catch (_) {
-      print('not connected');
+      // print('not connected');
       checkNet = false;
     }
-    emit(AppConnectionState());
+    if (checkNet != lastCheckNet) {
+      lastCheckNet = checkNet;
+      emit(AppConnectionState());
+    }
   }
 
   checkWarning(context) {

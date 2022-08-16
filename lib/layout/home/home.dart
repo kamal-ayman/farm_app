@@ -21,7 +21,6 @@ class HomeFarm extends StatelessWidget {
         AppCubit cubit = AppCubit.get(context);
         Timer(Duration(seconds: 1), () {
           cubit.checkNetwork();
-          cubit.getData();
           cubit.checkWarning(context);
         });
         return Scaffold(
